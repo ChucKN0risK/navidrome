@@ -18,6 +18,8 @@ import { RouterLink, RouterView } from 'vue-router'
   </header> -->
   <nav>
     <RouterLink to="/">Artists</RouterLink>
+    <RouterLink to="/albums">Albums</RouterLink>
+    <RouterLink to="/playlists">Playlists</RouterLink>
   </nav>
 
   <RouterView />
@@ -25,11 +27,5 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
-nav {
-  display: flex;
-  height: 100%;
-  max-height: 100%;
-  padding: 2rem;
-  width: 15rem;
-}
+
 </style>
