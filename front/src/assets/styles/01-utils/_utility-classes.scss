@@ -1,0 +1,24 @@
+// ----------------------
+// == Utility Classes
+// ----------------------
+
+// Apply these classes on element only when
+// the rule you want to set is independant from
+// the rest of your element style.
+// Using '!important' here is recommanded
+
+.u-absolute-center {
+  @include absolute-center;
+}
+
+// Visually hide content, leaving it accessible to screenreaders and ATs.
+// http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+.u-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+}

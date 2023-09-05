@@ -1,0 +1,19 @@
+// =======================
+// Components / Icon
+// =======================
+
+.a-vector {
+  @include flex-absolute-center;
+  flex-shrink: 0;
+
+  & > svg {
+    width: var(--icon-width, var(--base-space-5));
+    height: var(--icon-height, var(--base-space-5));
+    fill: currentColor;
+  }
+
+  &.a-vector--full-width {
+    --icon-width: 100%;
+    --icon-height: auto;
+  }
+}

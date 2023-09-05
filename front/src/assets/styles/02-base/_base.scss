@@ -1,0 +1,163 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --white: #ffffff;
+  --black: #181818;
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--white);
+  --color-text: var(--black);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--black);
+    --color-text: var(--white);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+/* ======================================================================================== */
+/* Base | Default, single element selectors that will look the same regardless of location. */
+/* ======================================================================================== */
+
+html {
+  min-height: 100vh;
+  text-size-adjust: 100%;
+  /* Mobile First Approach */
+  /* Refer to https://prowebtype.com/setting-type/ */
+  font-family: var(--font-text), serif;
+  font-size: 100%;
+  font-weight: 400;
+  text-align: left;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  scroll-behavior: var(--scroll-behavior, auto);
+}
+
+/* Make scrollbars black */
+/* https://twitter.com/diegohaz/status/1529543787311144961 */
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------- */
+/* GENERAL SETTINGS                  */
+/* --------------------------------- */
+
+body {
+  display: flex;
+  position: relative;
+  font-family: var(--font-text);
+
+  height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* p,
+a,
+ul,
+blockquote,
+figcaption {
+  @include text-body-m;
+} */
+
+picture {
+  display: block;
+}
+
+img {
+  height: auto;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+#app {
+  --grid-template-areas: 
+    'main'
+    'nav'
+  ;
+  display: grid;
+  grid-template-areas: var(--grid-template-areas);
+  width: 100%;
+  height: 100%;
+
+  @media only screen and (min-width: 601px) {
+    --grid-template-areas: 'nav main';
+  }
+}
+
+.c-main-nav {
+  --border: 1px solid var(--gray-11);
+
+  grid-area: nav;
+  display: flex;
+  height: 4rem;
+
+  & > * {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    padding: 1rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    border-top: var(--border);
+
+    & > * {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+
+  @media only screen and (min-width: 601px) {
+    height: 100%;
+    min-width: 150px;
+    flex-direction: column;
+    border-right: var(--border);
+  }
+}
+
+main {
+  grid-area: main;
+  overflow-y: scroll;
+  max-height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: var(--white);
+
+  &:hover {
+    background-color: var(--gray-12);
+  }
+}

@@ -1,0 +1,7 @@
+:root {
+  --base-space-value: 4px;
+
+  @for $i from 1 through 50 {
+    --base-space-#{$i}: calc(var(--base-space-value) * #{$i});
+  }
+}

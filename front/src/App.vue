@@ -16,7 +16,7 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
     </div>
   </header> -->
-  <nav>
+  <nav class="c-main-nav">
     <RouterLink to="/">Artists</RouterLink>
     <RouterLink to="/albums">Albums</RouterLink>
     <RouterLink to="/playlists">Playlists</RouterLink>
@@ -26,6 +26,6 @@ import { RouterLink, RouterView } from 'vue-router'
 
 </template>
 
-<style scoped>
-
+<style lang="scss">
+  @import '@/assets/styles/style.scss';
 </style>

@@ -1,4 +1,20 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "shims-vue.d.ts",
+    "src/env.d.ts",
+    "src/css.d.ts",
+    "tests/**/*.spec.ts",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ],
   "files": [],
   "references": [
     {

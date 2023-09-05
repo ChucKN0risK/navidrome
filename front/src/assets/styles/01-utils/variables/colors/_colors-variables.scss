@@ -1,0 +1,15 @@
+// --------------------------------------
+// == Sample Color Variables and Mappings
+// --------------------------------------
+
+:root {
+  // Semantic
+  --color-positive: var(--global-green-base);
+  --color-warning: var(--global-red-base);
+
+  // Global
+  --color-app: var(--global-app-violet-base);
+
+  // Box-shadows
+  --box-shadow: 0 12px 16px 0 rgba(237, 242, 251, 0.71);
+}

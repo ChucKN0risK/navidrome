@@ -1,0 +1,35 @@
+/* Only li's allowed here */
+/* https://twitter.com/argyleink/status/1274728784659267584 */
+:is(ul, ol) > *:not(li) {
+  outline: 2px dotted red;
+}
+
+/* Img without alt attribute ? */
+/* https://twitter.com/geoffreycrofte/status/1274652138854121474 */
+img:not([alt]) {
+  outline: 2px dotted red;
+}
+
+/* forbidden nesting */
+/* https://twitter.com/argyleink/status/1275430156266602497 */
+:not(figure) > figcaption,
+:not(fieldset) > legend,
+:not(dl) > :is(dt, dd),
+:not(tr) > :is(td, th),
+:not(select) > :is(option, optgroup),
+:not(table) > :is(thead, tfoot, tbody, tr, colgroup, caption) {
+  outline: 2px dotted red;
+}
+
+/* No divs inside inline elements */
+/* https://twitter.com/argyleink/status/1275792544102862849 */
+:is(b, i, q, em, abbr, cite, code, span, small, strong) > div {
+  outline: 2px dotted red;
+}
+
+/* Inputs fields without label ? */
+input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([aria-labelledby], [id]),
+textarea:not([aria-labelledby], [id]),
+label:not([for]) {
+  outline: 2px dotted red;
+}

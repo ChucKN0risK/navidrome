@@ -1,0 +1,242 @@
+// =======================
+// Tools / Mixins
+// =======================
+
+/// Placeholder
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   @include placeholder() {
+///     color: blue;
+///   }
+///
+/// @example css - CSS output
+///   &::-webkit-input-placeholder {
+///     color: blue;
+///   }
+///   &:-moz-placeholder {
+///     color: blue;
+///   }
+///   &:-ms-input-placeholder {
+///     color: blue;
+///   }
+@mixin placeholder() {
+  *::-webkit-input-placeholder {
+    @content;
+  }
+  *::-moz-placeholder {
+    @content;
+    // Fix placeholder opacity for Firefox
+    opacity: 1;
+  }
+  *:-ms-input-placeholder {
+    @content;
+  }
+  *::placeholder {
+    @content;
+  }
+}
+/* stylelint-enable */
+
+/// Flexbox vertical Centering (apply this class on the parent element of your targeted children)
+@mixin flex-vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+/// Flexbox absolute centering (apply this class on the parent element of your targeted children)
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   .foo {
+///     @include flex-absolute-center();
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     display: flex;
+///     align-items: center;
+///     justify-content: center;
+///   }
+@mixin flex-absolute-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Vertical Center
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   .foo {
+///     @include vertical-center();
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     position: absolute;
+///     top: 50%;
+///     transform: translateY(-50%);
+///   }
+@mixin vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/// Vertical & Horizontal Center
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   .foo {
+///     @include absolute-center();
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     position: absolute;
+///     margin: auto;
+///     top: 0;
+///     right: 0;
+///     bottom: 0;
+///     left: 0;
+///   }
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/// Mixin helping defining both `width` and `height` simultaneously.
+///
+/// @author Hugo Giraudel
+///
+/// @access public
+///
+/// @param {Length} $width - Element's `width`
+/// @param {Length} $height ($width) - Element's `height`
+///
+/// @example scss - Usage
+///   .foo {
+///     @include size(10em);
+///   }
+///
+///   .bar {
+///     @include size(100%, 10em);
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     width: 10em;
+///     height: 10em;
+///   }
+///
+///   .bar {
+///     width: 100%;
+///     height: 10em;
+///   }
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+/// Mixin allowing to keep the initial aspect ratio of an element.
+///
+/// @author Jakob-e
+///
+/// @access public
+///
+/// @link http://codepen.io/jakob-e/pen/LEdWNB
+///
+/// @example scss - Usage
+/// .class { @include aspect-ratio(); }            // No arguments defaults to a 1:1 ratio
+/// .class { @include aspect-ratio(16, 9); }       // Width and height
+/// .class { @include aspect-ratio(1.777778); }    // Ratio (calculated width/height)
+/// .class { @include aspect-ratio(4px, 3px); }    // Comparable units
+/// .class { @include aspect-ratio($ratio: 1.2); } // Keywords
+@mixin aspect-ratio($ratio-or-width, $height: null) {
+  $padding: if($height, percentage($height/$ratio-or-width), percentage(1 / $ratio-or-width));
+
+  &::before {
+    content: '';
+    float: left;
+    padding-bottom: $padding;
+  }
+
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+/// Mixin cropping text when it overflows of its parent element
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   .foo {
+///     @include limit-text;
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     white-space: nowrap;
+///     overflow: hidden;
+///     text-overflow: ellipsis;
+///   }
+///
+@mixin limit-text() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/// Mixin setting a link default style
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   .foo {
+///     @include base-link;
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     color: var(--color-app);
+///     text-decoration: none;
+///     text-decoration-skip-ink: auto;
+///
+///     &:hover {
+///       text-decoration: underline;
+///     }
+///   }
+///
+@mixin base-link() {
+  --text-decoration: none;
+  
+  color: var(--color-app);
+  text-decoration: var(--text-decoration);
+  text-decoration-skip-ink: auto;
+
+  &:hover {
+    --text-decoration: none;
+  }
+}

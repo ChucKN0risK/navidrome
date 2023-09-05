@@ -1,0 +1,14 @@
+:root[data-theme="light"] {
+  /* GRADIENT */
+  --gradient-purple: linear-gradient(
+    90deg,
+    rgb(98, 77, 227) 0%,
+    rgb(138, 120, 238) 100%
+  );
+  --skeleton-gradient: linear-gradient(
+    90deg,
+    rgb(246, 248, 251) 0%,
+    rgb(222, 228, 237) 52.08%,
+    rgb(246, 248, 251) 100%
+  );
+}

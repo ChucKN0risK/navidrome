@@ -1,0 +1,57 @@
+@mixin text-title-1 {
+  font-family: var(--font-text-semi-bold);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+@mixin text-title-2 {
+  font-family: var(--font-text-semi-bold);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.33;
+}
+
+@mixin text-subtitle {
+  font-family: var(--font-text-medium);
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.78;
+}
+
+@mixin text-body-l {
+  font-family: var(--font-text-semi-bold);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.43;
+}
+
+@mixin text-body-m {
+  font-family: var(--font-text-medium);
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.43;
+}
+
+@mixin text-body-s {
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+}
+
+@mixin text-section {
+  font-family: var(--font-text-medium);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.67;
+  letter-spacing: 0.00375rem;
+  text-transform: uppercase;
+}
+
+@mixin text-caption {
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}

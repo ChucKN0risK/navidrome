@@ -1,0 +1,37 @@
+// ----------------------
+// == Variables / General
+// ----------------------
+
+:root {
+  /// ---------------------
+  /// STYLE
+  /// ---------------------
+  --border-radius-small: 4px;
+  --border-radius: 6px;
+  --border-radius-large: 8px;
+  --border-radius-xl: 16px;
+  --border-width: 1px;
+  --page-horizontal-padding: var(--base-space-6);
+  --page-vertical-padding: var(--base-space-6);
+  --base-cta-height: var(--base-space-8);
+  --base-cta-border-radius: var(--border-radius);
+  --base-form-element-side-padding: var(--base-space-3);
+  --base-form-element-border-color-default: var(--border-component-lightest-border);
+  --base-form-element-border-color-focus: var(--border-component-active);
+  --base-form-element-background-color-default: var(--background-component-input);
+  --base-form-element-background-color-disabled: var(--background-component-disabled);
+  --base-form-element-shadow-default: var(--shadow-input-default);
+  --base-form-element-shadow-focused: var(--shadow-component-focused-primary);
+  --base-form-element-shadow-focused-destructive: var(--shadow-component-focused-destructive);
+  --layout-header-height: 9rem; // 144px
+  --banner-height: 0px;
+
+  /// ---------------------
+  /// GRID
+  /// ---------------------
+  --max-content-width-tiny: 29.5rem; // 472px
+  --max-content-width-small: 37.5rem; // 600px
+  --max-content-width-medium: 50rem; // 800px
+  --max-content-width-large: 76.5rem; // 1224px
+  --max-content-width-full: 100%;
+}

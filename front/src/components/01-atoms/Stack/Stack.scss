@@ -1,0 +1,31 @@
+.a-stack {
+  --space: var(--base-space-2);
+
+  display: flex;
+}
+
+.a-stack--vertical {
+  flex-direction: column;
+
+  & > * + * {
+    margin-top: var(--space);
+  }
+}
+
+.a-stack--horizontal {
+  & > * + * {
+    margin-left: var(--space);
+  }
+}
+
+.a-stack--full-width {
+  flex: 1;
+}
+
+.a-stack--align-items {
+  align-items: var(--align-items);
+}
+
+.a-stack--justify-content {
+  justify-content: var(--justify-content);
+}

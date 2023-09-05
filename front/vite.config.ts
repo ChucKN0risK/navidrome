@@ -1,21 +1,33 @@
-import { fileURLToPath, URL } from 'node:url'
+import path from 'path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import postcssNesting from 'postcss-nesting'
+
+const scssPaths: Array<string> = [
+  './src/assets/styles/01-utils/_mixins.scss',
+  './src/assets/styles/01-utils/_media-queries.scss',
+];
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+      '@': path.resolve(__dirname, './src'),
+    },
   },
   css: {
-    postcss: {
-      plugins: [postcssNesting]
-    }
+    preprocessorOptions: {
+      scss: {
+        additionalData: scssPaths.reduce((acc, scssPath) => {
+          const pathToImport = path.resolve(__dirname, scssPath);
+          if (acc) {
+            return `${acc} @import "${pathToImport}";`;
+          }
+          return `@import "${pathToImport}";`;
+        }, ''),
+      },
+    },
   },
   server: {
     cors: false

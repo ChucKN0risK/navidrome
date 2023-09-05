@@ -1,0 +1,8 @@
+// --------------------------
+// == Variables / Breakpoints
+// --------------------------
+
+// Since native CSS variables can't be used inside
+// media-queries we must specify them in sass variables
+
+$header-nav-breakpoint: 700px;

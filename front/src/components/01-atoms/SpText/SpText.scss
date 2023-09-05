@@ -1,0 +1,32 @@
+.a-text--title-1 {
+  @include text-title-1;
+}
+
+.a-text--title-2 {
+  @include text-title-2;
+}
+
+.a-text--subtitle {
+  @include text-subtitle;
+}
+
+.a-text--body-l,
+strong {
+  @include text-body-l;
+}
+
+.a-text--body-m {
+  @include text-body-m;
+}
+
+.a-text--body-s {
+  @include text-body-s;
+}
+
+.a-text--section {
+  @include text-section;
+}
+
+.a-text--caption {
+  @include text-caption;
+}

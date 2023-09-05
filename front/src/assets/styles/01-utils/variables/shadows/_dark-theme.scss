@@ -1,0 +1,44 @@
+:root[data-theme="dark"] {
+  /* SHADOW */
+  --marketing-player: 0px 1px 5px rgba(0, 0, 0, 0.12),
+    0px 5px 10px rgba(0, 0, 0, 0.2), 0px 13px 20px rgba(0, 0, 0, 0.25),
+    0px 25px 38px rgba(0, 0, 0, 0.3), 0px 42px 71px rgba(0, 0, 0, 0.38),
+    0px 65px 121px rgba(0, 0, 0, 0.5);
+  --shadow-button-active: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  --shadow-button-default: 0px 2px 4px rgba(0, 0, 0, 0.12),
+    inset 0px 2px 0px rgba(255, 255, 255, 0.04);
+  --shadow-component-active: inset 0px -2px 0px rgba(138, 120, 238, 1);
+  --shadow-component-default: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-component-elevated-element: 0px 4px 8px rgba(0, 0, 0, 0.24);
+  --shadow-component-focused-active: 0px 0px 0px 3px rgba(45, 60, 48, 1);
+  --shadow-component-focused-destructive: 0px 0px 0px 3px rgba(60, 38, 39, 1);
+  --shadow-component-focused-green-structured: 0px 0px 0px 5px
+      rgba(45, 60, 48, 1),
+    0px 0px 0px 2px rgba(125, 216, 121, 1), 0px 0px 0px 1px rgba(39, 40, 43, 1);
+  --shadow-component-focused-grey-structured: 0px 0px 0px 5px
+      rgba(49, 50, 53, 1),
+    0px 0px 0px 2px rgba(68, 71, 75, 1), 0px 0px 0px 1px rgba(39, 40, 43, 1);
+  --shadow-component-focused-neutral: 0px 0px 0px 3px rgba(92, 96, 102, 0.4);
+  --shadow-component-focused-primary: 0px 0px 0px 3px rgba(54, 42, 121, 1);
+  --shadow-component-focused-purple-structured: 0px 0px 0px 5px
+      rgba(54, 42, 121, 1),
+    0px 0px 0px 2px rgba(98, 77, 227, 1), 0px 0px 0px 1px rgba(39, 40, 43, 1);
+  --shadow-component-focused-red-structured: 0px 0px 0px 5px rgba(60, 38, 39, 1),
+    0px 0px 0px 2px rgba(221, 72, 64, 1), 0px 0px 0px 1px rgba(39, 40, 43, 1);
+  --shadow-component-hover: inset 0px -2px 0px rgba(68, 71, 75, 1);
+  --shadow-component-main-panel: 0px 2px 24px rgba(0, 0, 0, 0.16),
+    -4px 0px 8px rgba(0, 0, 0, 0.08);
+  --shadow-component-modal: 0px 12px 24px rgba(0, 0, 0, 0.24);
+  --shadow-component-solid-left: -1px 0px 0px rgba(68, 71, 75, 1);
+  --shadow-component-solid-right: 1px 0px 0px rgba(68, 71, 75, 1);
+  --shadow-component-solid-shadow: 0px 1px 0px rgba(68, 71, 75, 1);
+  --shadow-component-solid-top: 0px -1px 0px rgba(68, 71, 75, 1);
+  --shadow-component-source-panel: 0px 2px 24px rgba(24, 30, 37, 0.16),
+    -4px 0px 8px rgba(24, 30, 37, 0.16);
+  --shadow-component-token-preview: inset 0px 0px 0px 1px
+    rgba(255, 255, 255, 0.12);
+  --shadow-input-default: 0px 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-input-hover: 0px 2px 4px rgba(0, 0, 0, 0.24);
+  --shadow-video-wrapper: 0px 16px 128px rgba(0, 0, 0, 0.32),
+    0px 8px 64px rgba(0, 0, 0, 0.08);
+}
