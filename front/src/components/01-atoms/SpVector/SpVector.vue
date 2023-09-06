@@ -22,6 +22,7 @@ const props = withDefaults(
     glyph: string | Function;
     width?: number;
     height?: number;
+    size?: number;
     color?: string;
     filter?: string;
     fullWidth?: boolean;
@@ -29,6 +30,7 @@ const props = withDefaults(
   {
     width: undefined,
     height: undefined,
+    size: undefined,
     color: undefined,
     filter: undefined,
     fullWidth: false,
@@ -36,9 +38,9 @@ const props = withDefaults(
 );
 
 const style = computed(() => ({
-  width: props.width ? `${props.width}px` : '',
-  height: props.height ? `${props.height}px` : '',
-  color: `var(--${props.color || 'icon-default'})`,
+  '--icon-width': props.width ? `${props.width}px` : 'var(--base-space-4)',
+  '--icon-height': props.height ? `${props.height}px` : 'var(--base-space-4)',
+  color: `var(--${props.color})`,
   filter: props.filter ? `${props.filter}` : '',
 }));
 

@@ -27,7 +27,7 @@ export const useArtistStore = defineStore('artistStore', {
   } as RootState),
   getters: {
     getArtists(state) {
-      return state.artists;
+      return state.artists.slice(0, 10);
     }
   },
   actions: {

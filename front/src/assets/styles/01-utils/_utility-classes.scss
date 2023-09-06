@@ -22,3 +22,8 @@
   overflow: hidden !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
 }
+
+.u-list-reset {
+  list-style: none;
+  padding-inline-start: 0;
+}

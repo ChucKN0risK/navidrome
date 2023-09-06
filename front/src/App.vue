@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
+import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
 </script>
 
 <template>
@@ -17,9 +19,19 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </header> -->
   <nav class="c-main-nav">
-    <RouterLink to="/">Artists</RouterLink>
-    <RouterLink to="/albums">Albums</RouterLink>
-    <RouterLink to="/playlists">Playlists</RouterLink>
+    <SpText :text="'Library'" :type="'subtitle'" class="c-main-nav__title"/>
+    <RouterLink to="/">
+      <sp-vector :glyph="'artists'" />
+      <SpText :text="'Artists'" :type="'body-m'"/>
+    </RouterLink>
+    <RouterLink to="/albums">
+      <sp-vector :glyph="'albums'" />
+      <SpText :text="'Albums'" :type="'body-m'"/>
+    </RouterLink>
+    <RouterLink to="/playlists">
+      <sp-vector :glyph="'playlists'" />
+      <SpText :text="'Playlists'" :type="'body-m'"/>
+    </RouterLink>
   </nav>
 
   <RouterView />

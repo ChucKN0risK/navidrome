@@ -2,6 +2,10 @@
 // Components / Icon
 // =======================
 
+:root {
+  --icon-default-color: var(--grey-8);
+}
+
 .a-vector {
   @include flex-absolute-center;
   flex-shrink: 0;
