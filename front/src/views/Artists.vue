@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
-import { useArtistStore } from "@/stores/artists";
+import { computed } from "vue";
+import { useArtistsStore } from "@/stores/artists";
 import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
-const store = useArtistStore();
-onMounted(() => {
-  store.fetchArtists();
-});
+import Avatar from '@/components/01-atoms/Avatar/Avatar.vue';
+const artistsStore = useArtistsStore();
+artistsStore.fetchArtists();
 const getArtists = computed(() => {
-  return store.getArtists;
+  return artistsStore.getArtists;
 });
 </script>
 
@@ -18,10 +16,25 @@ const getArtists = computed(() => {
       <SpText :text="'Artists'" :type="'subtitle'" :tag="'h1'" class="p-artists__title" />
       <ul class="c-artists-list u-list-reset">
         <li v-for="artist in getArtists" :key="artist.id">
-          <a :href="artist.id">
-            <span>{{ artist.name }}</span>
-            <sp-vector :glyph="'arrow-right'" />
-          </a>
+          <RouterLink
+            :to="{
+              name: 'artist',
+              params: {
+                id: artist.id
+              }
+            }"
+            class="m-artist"
+          >
+            <Avatar
+              :icon="{
+                glyph: 'artists',
+                width: 20,
+                height: 20,
+              }"
+              size="small"
+            />
+            <SpText :text="artist.name" :type="'body-m'"/>
+          </RouterLink>
         </li>
       </ul>
     </aside>
@@ -33,14 +46,15 @@ const getArtists = computed(() => {
     margin-top: var(--base-space-3);
   }
 
-  .c-artists-list {
-    a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: var(--base-space-2);
-      padding-bottom: var(--base-space-2);
-      border-radius: var(--border-radius);
+  .m-artist {
+    display: flex;
+    align-items: center;
+    padding-top: var(--base-space-2);
+    padding-bottom: var(--base-space-2);
+    border-radius: var(--border-radius);
+
+    & > * + * {
+      margin-left: var(--base-space-2);
     }
   }
 </style>

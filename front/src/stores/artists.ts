@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { SubsonicAPI } from 'subsonic-api';
+import { type ArtistWithAlbumsID3 } from 'subsonic-api';
 
 const api = new SubsonicAPI({
   url: 'http://localhost:4533',
@@ -12,35 +13,29 @@ await api.login({
   password: 'lucho',
 });
 
-export interface Artist {
-  id: string;
-  name: string;
-}
-
 export type RootState = {
-  artists: Artist[];
+  artists: Array<ArtistWithAlbumsID3>;
 };
 
-export const useArtistStore = defineStore('artistStore', {
+export const useArtistsStore = defineStore('artistStore', {
   state: () => ({
-    artists: [],
+    artists: []
   } as RootState),
   getters: {
     getArtists(state) {
       return state.artists.slice(0, 10);
-    }
+    },
+    getArtistById: (state) => {
+      return (artistId: string) => state.artists.find((artist) => artist.id === artistId)
+    },
   },
   actions: {
     async fetchArtists() {
       try {
         const data = await api.getArtists();
-        const artists = [] as Artist[];
+        const artists: RootState['artists'] = [];
         data.artists.index?.map((artistChunck) => {
-          artistChunck?.artist?.map((el) => {
-            const artist = {
-              id: el.id,
-              name: el.name,
-            }
+          artistChunck?.artist?.map((artist) => {
             artists.push(artist);
           });
         });
