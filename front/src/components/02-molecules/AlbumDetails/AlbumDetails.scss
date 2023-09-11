@@ -1,0 +1,35 @@
+.m-album-details {
+  display: flex;
+  
+  @container (max-width: 400px) {
+    flex-direction: column;
+  }
+
+  @container (min-width: 401px) {
+    flex-direction: row;
+  }
+}
+
+.m-album-details-container {
+  container: album-details / inline-size;
+}
+
+.m-album-details__cover {
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1/1;
+
+  @container (max-width: 400px) {
+    & + * {
+      margin-top: var(--base-space-4);  
+    }
+  }
+
+  @container (min-width: 401px) {
+    & + * {
+      margin-left: var(--base-space-4);  
+    }  
+  }
+}

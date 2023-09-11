@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import { type AlbumWithSongsID3 } from 'subsonic-api';
+import { type AlbumWithSongsID3, type AlbumInfo } from 'subsonic-api';
 import { api } from '@/main';
 
 export type RootState = {
-  album?: AlbumWithSongsID3 | null;
+  album?: AlbumWithSongsID3 & Pick<AlbumInfo, 'largeImageUrl'> | null;
 };
 
 export const useAlbumStore = defineStore('albumStore', {
@@ -19,17 +19,13 @@ export const useAlbumStore = defineStore('albumStore', {
     async fetchAlbum(albumId: string) {
       this.album = null;
       try {
-        const data = await api.getAlbum({ id: albumId });
-        const data2 = await api.getAlbumInfo({ id: albumId });
-        console.log(data2)
-        // const artist = {
-        //   id: data.artist.id,
-        //   name: data.artist.name,
-        //   albums: data.artist.album,
-        //   albumCount: data.artist.albumCount
-        // };
-        this.album = data.album;
-        console.log('in store', this.album)
+        const albumData = await api.getAlbum({ id: albumId });
+        const albumInfo = await api.getAlbumInfo({ id: albumId });
+        const album = {
+          ...albumData.album,
+          largeImageUrl: albumInfo.albumInfo.largeImageUrl
+        };
+        this.album = album;
       } catch (error) {
         alert(error)
         console.log(error)

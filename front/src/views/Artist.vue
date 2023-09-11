@@ -39,7 +39,6 @@ const artist = getArtist;
               artistId: artist.id
             }
           }">
-            <img :src="album.coverArt" alt="">
             <SpText :text="album.name" :type="'body-m'"/>
             <SpVector :glyph="'arrow-right'" />
           </RouterLink>

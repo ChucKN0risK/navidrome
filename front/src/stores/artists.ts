@@ -14,7 +14,7 @@ await api.login({
 });
 
 export type RootState = {
-  artists: Array<ArtistWithAlbumsID3>;
+  artists: Array<Pick<ArtistWithAlbumsID3, 'id' | 'name' | 'album'>>;
 };
 
 export const useArtistsStore = defineStore('artistStore', {
