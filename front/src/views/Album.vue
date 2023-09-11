@@ -23,8 +23,9 @@ const album = getAlbum;
     <AlbumDetails v-if="album" :album="album" />
     <ul v-if="album" class="o-song-list u-list-reset">
       <li v-for="song in album.song" :key="song.id">
-        <SpText :text="song.title" :type="'body-m'"/>
-        <SpText :text="secondsToHHMMSS(song.duration)" :type="'body-m'"/>
+        <SpText :text="song.track" :type="'body-m'" />
+        <SpText :text="song.title" :type="'body-m'" />
+        <SpText :text="secondsToHHMMSS(song.duration)" :type="'body-m'" class="o-song__duration" />
       </li>
     </ul>
   </Stack>
@@ -38,10 +39,14 @@ const album = getAlbum;
   .o-song-list {
     li {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       padding-top: var(--base-space-2);
       padding-bottom: var(--base-space-2);
+      gap: var(--base-space-2);
     }
+  }
+
+  .o-song__duration {
+    margin-left: auto;
   }
 </style>
