@@ -24,6 +24,8 @@ import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
 const props = defineProps<{
   album: AlbumWithSongsID3 & Pick<AlbumInfo, 'largeImageUrl'>;
 }>();
+
+console.log(props.album)
 </script>
 
 <style lang="scss">
