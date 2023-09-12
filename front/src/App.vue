@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router';
 import SpText from '@/components/01-atoms/SpText/SpText.vue';
 import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
+import Player from '@/components/03-organisms/Player/Player.vue';
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
       </nav>
     </div>
   </header> -->
+  <Player :song-id="'a1ad9997185abd50caee13ab725de838'" />
   <nav class="c-main-nav">
     <SpText :text="'Library'" :type="'subtitle'" class="c-main-nav__title"/>
     <RouterLink to="/">
