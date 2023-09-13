@@ -33,7 +33,6 @@ export const usePlayerStore = defineStore('playerStore', {
       }
     },
     async setCurrentSong() {
-      this.currentSong = null;
       try {
         const currentSong = await api.getNowPlaying();
         console.log('set', currentSong)

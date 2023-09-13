@@ -34,6 +34,7 @@ export default defineConfig({
         }, ''),
       },
     },
+    devSourcemap: true,
   },
   server: {
     cors: false

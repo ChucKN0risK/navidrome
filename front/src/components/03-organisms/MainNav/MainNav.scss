@@ -1,0 +1,39 @@
+.o-main-nav {
+  --border: 1px solid var(--gray-11);
+
+  grid-area: nav;
+  display: flex;
+  padding: var(--base-space-4);
+  
+  a {
+    display: flex;
+    border-radius: var(--border-radius);
+    align-items: center;
+    
+    > * + * {
+      margin-left: var(--base-space-2);
+    }
+  }
+  
+  @media only screen and (max-width: 800px) {
+    border-top: var(--border);
+    
+    & > * {
+      flex: 1;
+      justify-content: center;
+    }
+    
+    .o-main-nav__title {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: 801px) {
+    flex-direction: column;
+    border-right: var(--border);
+
+    .o-main-nav__title + * {
+      margin-top: var(--base-space-2);
+    }
+  }
+}
