@@ -1,0 +1,19 @@
+.a-album-cover {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  @include size(var(--size));
+  aspect-ratio: 1/1;
+}
+
+.a-album-cover--small {
+  --size: var(--base-space-8);
+  --border-radius: var(--border-radius-small);
+}
+.a-album-cover--medium {
+  --size: var(--base-space-20);
+  --border-radius: var(--border-radius-medium);
+}
+.a-album-cover--large {
+  --size: var(--base-space-40);
+  --border-radius: var(--border-radius-large);
+}

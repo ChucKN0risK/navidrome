@@ -27,6 +27,16 @@ export const usePlayerStore = defineStore('playerStore', {
       try {
         const stream = await api.stream({ id: songId });
         this.nowPlaying = stream.url;
+        console.log('now playing', stream.url)
+      } catch (error) {
+        alert(error)
+        console.log(error)
+      }
+    },
+    async registerCurrentSong(songId: string) {
+      try {
+        const scrobble = await api.scrobble({ id: songId, submission: false, time: 40 });
+        console.log('scrobble song', scrobble)
       } catch (error) {
         alert(error)
         console.log(error)

@@ -17,14 +17,17 @@ const props = defineProps<{
   songId: string;
 }>();
 
-const { play, setCurrentSong } = usePlayerStore();
+const { play, registerCurrentSong, setCurrentSong } = usePlayerStore();
 play(props.songId);
-setCurrentSong();
+registerCurrentSong(props.songId);
+setTimeout(() => {
+  setCurrentSong();
+}, 2000)
 const { getNowPlayingUrl } = storeToRefs(usePlayerStore())
 const { getCurrentSong } = storeToRefs(usePlayerStore())
 const url = getNowPlayingUrl;
 const song = getCurrentSong;
-console.log(song)
+console.log('current song in Player', song)
 </script>
 
 <style lang="scss">

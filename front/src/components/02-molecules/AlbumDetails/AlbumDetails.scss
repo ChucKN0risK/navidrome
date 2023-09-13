@@ -15,12 +15,6 @@
 }
 
 .m-album-details__cover {
-  border-radius: var(--border-radius-xl);
-  overflow: hidden;
-  width: 100%;
-  max-width: 200px;
-  aspect-ratio: 1/1;
-
   @container (max-width: 400px) {
     & + * {
       margin-top: var(--base-space-4);  
