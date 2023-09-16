@@ -102,6 +102,7 @@ button {
 #app {
   --grid-template-areas: 
     'main'
+    'player'
     'nav'
   ;
   --nav-height: 4rem;
@@ -113,7 +114,7 @@ button {
   height: 100%;
   
   @media only screen and (max-width: 800px) {
-    grid-template-rows: 1fr var(--nav-height);
+    grid-template-rows: 1fr var(--player-height) var(--nav-height);
   }
 
   @media only screen and (min-width: 801px) {

@@ -1,35 +1,58 @@
-.m-album-details {
+:root {
+  --play-button-size: var(--base-space-12);
+  --progress-bar-height: 2px;
+  --player-height: calc(var(--play-button-size) + var(--progress-bar-height));
+}
+
+.o-player {
+  grid-area: player;
   display: flex;
-  
-  @container (max-width: 400px) {
-    flex-direction: column;
+  display: grid;
+  grid-template-areas:
+    "play-state info"
+    "playback playback";
+  grid-template-columns: var(--play-button-size) 1fr;
+
+  audio {
+    display: none;
   }
 
-  @container (min-width: 401px) {
-    flex-direction: row;
+  button {
+    grid-area: play-state;
+    @include flex-absolute-center;
+    @include size(var(--play-button-size));
   }
 }
 
-.m-album-details-container {
-  container: album-details / inline-size;
+.o-player__info {
+  grid-area: info;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.m-album-details__cover {
-  border-radius: var(--border-radius-xl);
-  overflow: hidden;
-  width: 100%;
-  max-width: 200px;
-  aspect-ratio: 1/1;
-
-  @container (max-width: 400px) {
-    & + * {
-      margin-top: var(--base-space-4);  
-    }
+.o-player__progress {
+  grid-area: playback;
+  position: relative;
+  height: var(--progress-bar-height);
+  // width: 100%;
+  // background-color: var(--gray-4);
+  progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    @include size(100%);
   }
 
-  @container (min-width: 401px) {
-    & + * {
-      margin-left: var(--base-space-4);  
-    }  
-  }
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   left: 0;
+  //   bottom: 0;
+  //   height: 100%;
+  //   width: 100%;
+  //   background-color: red;
+  //   transform: translateX(calc(-100% + var(--playback-value)));
+  //   transition: transform ease-in .3s;
+  // }
 }

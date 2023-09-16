@@ -7,7 +7,7 @@
   
   a {
     display: flex;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-small);
     align-items: center;
     
     > * + * {

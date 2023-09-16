@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { type NowPlaying } from 'subsonic-api';
+import { type NowPlayingEntry } from 'subsonic-api';
 import { api } from '@/main';
 
 export type RootState = {
   nowPlaying?: string | null;
-  currentSong?: NowPlaying | null;
+  currentSong?: NowPlayingEntry | null;
 };
 
 export const usePlayerStore = defineStore('playerStore', {
@@ -17,17 +17,15 @@ export const usePlayerStore = defineStore('playerStore', {
       return state.nowPlaying;
     },
     getCurrentSong(state) {
-      console.log('get', state.currentSong)
       return state.currentSong;
     },
   },
   actions: {
-    async play(songId: string) {
+    async loadSong(songId: string) {
       this.nowPlaying = null;
       try {
         const stream = await api.stream({ id: songId });
         this.nowPlaying = stream.url;
-        console.log('now playing', stream.url)
       } catch (error) {
         alert(error)
         console.log(error)
@@ -35,8 +33,8 @@ export const usePlayerStore = defineStore('playerStore', {
     },
     async registerCurrentSong(songId: string) {
       try {
-        const scrobble = await api.scrobble({ id: songId, submission: false, time: 40 });
-        console.log('scrobble song', scrobble)
+        // @ts-ignore
+        await api.scrobble({ id: songId, submission: 'false' });
       } catch (error) {
         alert(error)
         console.log(error)
@@ -45,8 +43,7 @@ export const usePlayerStore = defineStore('playerStore', {
     async setCurrentSong() {
       try {
         const currentSong = await api.getNowPlaying();
-        console.log('set', currentSong)
-        this.currentSong = currentSong.nowPlaying;
+        this.currentSong = currentSong?.nowPlaying?.entry?.[0];
       } catch (error) {
         alert(error)
         console.log(error)
