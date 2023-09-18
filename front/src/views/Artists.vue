@@ -3,8 +3,10 @@ import { computed } from "vue";
 import { useArtistsStore } from "@/stores/artists";
 import SpText from '@/components/01-atoms/SpText/SpText.vue';
 import Avatar from '@/components/01-atoms/Avatar/Avatar.vue';
+
 const artistsStore = useArtistsStore();
-artistsStore.fetchArtists();
+const { fetchArtists } = useArtistsStore();
+fetchArtists();
 const getArtists = computed(() => {
   return artistsStore.getArtists;
 });

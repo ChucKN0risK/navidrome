@@ -3,7 +3,7 @@
     <div class="m-album-details">
       <AlbumCover
         :cover-url="album.largeImageUrl"
-        :size="'small'"
+        :size="'large'"
         class="m-album-details__cover"
       />
       <Stack :space-unit="1">

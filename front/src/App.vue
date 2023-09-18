@@ -20,7 +20,7 @@ import MainNav from '@/components/03-organisms/MainNav/MainNav.vue';
       </nav>
     </div>
   </header> -->
-  <Player :song-id="'a1ad9997185abd50caee13ab725de838'" />
+  <Player />
   <MainNav />
   <RouterView />
 

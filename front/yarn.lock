@@ -8221,10 +8221,10 @@ style-loader@^3.3.2:
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-3.3.3.tgz#bba8daac19930169c0c9c96706749a597ae3acff"
   integrity sha512-53BiGLXAcll9maCYtZi2RCQZKa8NQQai5C4horqKyRmHj9H7QmcUyucrH+4KW/gBQbXM2AsB0axoEcFZPlfPcw==
 
-subsonic-api@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/subsonic-api/-/subsonic-api-1.4.0.tgz#f44a36ed8d9c5ae05395c04da9e4cec80d5f1bce"
-  integrity sha512-cB93CCux8xt+MYMKQ+ymblh2rSwxDg93nvZG0+ZdE5ngn2n3irxY5DjItZz0Pgavtpvosm6pdP5+dtk+HLNKKA==
+subsonic-api@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/subsonic-api/-/subsonic-api-1.4.1.tgz#e8d4234b81c2ace896d163bcef368801f17c5e07"
+  integrity sha512-fAMUaq+rxKVpm3jx3kItCf0xEzPD9SZlIMpmMP9BOHDfunSnt800yambLBcsefiD0IJJFmn3aWjnwvDEssoB3Q==
   dependencies:
     node-fetch "^3.3.2"
     spark-md5 "^3.0.2"

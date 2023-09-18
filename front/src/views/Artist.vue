@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
 import { useArtistStore } from '@/stores/artist';
 import SpText from '@/components/01-atoms/SpText/SpText.vue';
 import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
@@ -10,20 +9,10 @@ const props = defineProps<{
   id: string;
 }>();
 
-// const artistStore = useArtistStore();
-// artistStore.fetchArtist(props.id);
-// const artist = computed(() => {
-//   console.log('in compoennt', artistStore.getArtist)
-//   return artistStore.getArtist;
-// });
-
-const { getArtist } = storeToRefs(useArtistStore())
+const { getArtist } = storeToRefs(useArtistStore());
 const { fetchArtist } = useArtistStore();
 fetchArtist(props.id);
 const artist = getArtist;
-// const artist = computed(() => {
-//   return getArtist;
-// });
 </script>
 
 <template>
@@ -42,7 +31,6 @@ const artist = getArtist;
             <SpText :text="album.name" :type="'body-m'"/>
             <SpVector :glyph="'arrow-right'" />
           </RouterLink>
-          <!-- <SpText :text="album.name" :type="'body-m'"/> -->
         </li>
       </ul>
     </aside>
@@ -57,11 +45,10 @@ const artist = getArtist;
   .c-artists-list {
     a {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       padding-top: var(--base-space-2);
       padding-bottom: var(--base-space-2);
-      border-radius: var(--border-radius);
+      border-radius: var(--border-radius-small);
     }
   }
 </style>

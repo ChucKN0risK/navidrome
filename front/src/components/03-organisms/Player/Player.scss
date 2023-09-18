@@ -1,5 +1,5 @@
 :root {
-  --play-button-size: var(--base-space-12);
+  --play-button-size: var(--base-space-14);
   --progress-bar-height: 2px;
   --player-height: calc(var(--play-button-size) + var(--progress-bar-height));
 }
@@ -16,11 +16,22 @@
   audio {
     display: none;
   }
+}
+
+.o-player__play {
+  grid-area: play-state;
+  position: relative;
+  padding: var(--base-space-2);
+  @include flex-absolute-center;
+  @include size(var(--play-button-size));
+  
+  .o-player__play__cover {
+    @include size(100%);
+  }
 
   button {
-    grid-area: play-state;
-    @include flex-absolute-center;
-    @include size(var(--play-button-size));
+    position: absolute;
+    @include absolute-center;
   }
 }
 

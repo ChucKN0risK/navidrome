@@ -27,6 +27,7 @@ export const useArtistStore = defineStore('artistStore', {
         //   albumCount: data.artist.albumCount
         // };
         this.artist = data.artist;
+        console.log(this.artist)
       } catch (error) {
         alert(error)
         console.log(error)

@@ -5,12 +5,14 @@ import { api } from '@/main';
 export type RootState = {
   nowPlaying?: string | null;
   currentSong?: NowPlayingEntry | null;
+  songId?: string | null;
 };
 
 export const usePlayerStore = defineStore('playerStore', {
   state: () => ({
     nowPlaying: null,
     currentSong: null,
+    songId: null,
   } as RootState),
   getters: {
     getNowPlayingUrl(state) {
@@ -21,6 +23,9 @@ export const usePlayerStore = defineStore('playerStore', {
     },
   },
   actions: {
+    setSongId(songId: string) {
+      this.songId = songId;
+    },
     async loadSong(songId: string) {
       this.nowPlaying = null;
       try {
@@ -34,7 +39,7 @@ export const usePlayerStore = defineStore('playerStore', {
     async registerCurrentSong(songId: string) {
       try {
         // @ts-ignore
-        await api.scrobble({ id: songId, submission: 'false' });
+        await api.scrobble({ id: songId, submission: false });
       } catch (error) {
         alert(error)
         console.log(error)
