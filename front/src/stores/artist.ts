@@ -20,14 +20,7 @@ export const useArtistStore = defineStore('artistStore', {
       this.artist = null;
       try {
         const data = await api.getArtist({ id: artistId });
-        // const artist = {
-        //   id: data.artist.id,
-        //   name: data.artist.name,
-        //   albums: data.artist.album,
-        //   albumCount: data.artist.albumCount
-        // };
         this.artist = data.artist;
-        console.log(this.artist)
       } catch (error) {
         alert(error)
         console.log(error)

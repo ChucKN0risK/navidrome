@@ -1,20 +1,3 @@
-<script setup lang="ts">
-import { useArtistStore } from '@/stores/artist';
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
-
-import { storeToRefs } from 'pinia'
-
-const props = defineProps<{
-  id: string;
-}>();
-
-const { getArtist } = storeToRefs(useArtistStore());
-const { fetchArtist } = useArtistStore();
-fetchArtist(props.id);
-const artist = getArtist;
-</script>
-
 <template>
   <main class="p-artists">
     <aside>
@@ -28,14 +11,41 @@ const artist = getArtist;
               artistId: artist.id
             }
           }">
+            <AlbumCover
+              :cover-url="fetchAlbumCover(album.id)"
+              :size="'small'"
+              class="o-player__play__cover"
+            />
             <SpText :text="album.name" :type="'body-m'"/>
-            <SpVector :glyph="'arrow-right'" />
           </RouterLink>
         </li>
       </ul>
     </aside>
   </main>
 </template>
+
+<script setup lang="ts">
+import { useArtistStore } from '@/stores/artist';
+import { useAlbumStore } from '@/stores/album';
+import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import AlbumCover from '@/components/01-atoms/AlbumCover/AlbumCover.vue';
+import { storeToRefs } from 'pinia'
+
+const props = defineProps<{
+  id: string;
+}>();
+
+const { getArtist } = storeToRefs(useArtistStore());
+const { fetchArtist } = useArtistStore();
+const { getAlbumCover } = useAlbumStore();
+fetchArtist(props.id);
+const artist = getArtist;
+const fetchAlbumCover = async (albumId: string) => {
+  const cover = await getAlbumCover(albumId);
+  console.log(cover);
+  return cover;
+};
+</script>
 
 <style>
   .p-artists__title + * {

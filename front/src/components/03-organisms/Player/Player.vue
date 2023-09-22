@@ -17,6 +17,17 @@
       <SpText :type="'body-s'" :text="song.artist" />
     </div>
     <div class="o-player__progress">
+      <label for="seekbar" class="u-visually-hidden">Seekbar</label>
+      <input
+        id="seekbar"
+        ref="seekBar"
+        value="0"
+        min="0"
+        max="100"
+        type="range"
+        step="1"
+        @change="updateSeekValue"
+      >
       <progress value="0" min="0" max="100" ref="progressBar" />
     </div>
   </div>
@@ -44,11 +55,10 @@ const url = getNowPlayingUrl;
 const song = getCurrentSong;
 const player = ref(null as HTMLAudioElement);
 const progressBar = ref(null as HTMLProgressElement);
+const seekBar = ref(null as HTMLInputElement);
 const isPlaying = ref(false);
 const canPlay = ref(false);
 const album = getAlbum;
-console.log(album);
-
 
 // usePlayerStore().$subscribe((mutation, state) => {
 //   console.log(mutation)
@@ -75,8 +85,13 @@ const setPlayerLoadingState = () => {
 
 const updateProgress = () => {
   if (player.value.duration) {
+    seekBar.value.value = `${Math.floor((player.value.currentTime / player.value.duration) * 100)}`;
     progressBar.value.value = Math.floor((player.value.currentTime / player.value.duration) * 100);
   }
+};
+
+const updateSeekValue = () => {
+  console.log(seekBar.value.value);
 };
 
 const play = () => {

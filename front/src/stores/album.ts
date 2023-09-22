@@ -31,5 +31,15 @@ export const useAlbumStore = defineStore('albumStore', {
         console.log(error)
       }
     },
+    async getAlbumCover(albumId: string) {
+      try {
+        const data = await api.getAlbumInfo({ id: albumId });
+        const cover = data.albumInfo.largeImageUrl;
+        return cover;
+      } catch (error) {
+        alert(error)
+        console.log(error)
+      }
+    }
   },
 })

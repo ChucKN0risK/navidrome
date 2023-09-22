@@ -48,6 +48,9 @@ const setCurrentTrack = (songId: string) => {
     display: flex;
     align-items: center;
     width: 100%;
+    background-color: transparent;
+    border: none;
+    color: var(--white);
     padding-top: var(--base-space-2);
     padding-bottom: var(--base-space-2);
     gap: var(--base-space-2);

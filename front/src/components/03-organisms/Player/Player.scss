@@ -1,6 +1,6 @@
 :root {
   --play-button-size: var(--base-space-14);
-  --progress-bar-height: 2px;
+  --progress-bar-height: 4px;
   --player-height: calc(var(--play-button-size) + var(--progress-bar-height));
 }
 
@@ -32,6 +32,9 @@
   button {
     position: absolute;
     @include absolute-center;
+    background-color: transparent;
+    border: none;
+    color: var(--white);
   }
 }
 
@@ -48,11 +51,15 @@
   height: var(--progress-bar-height);
   // width: 100%;
   // background-color: var(--gray-4);
-  progress {
+  progress, input {
     position: absolute;
     left: 0;
     bottom: 0;
     @include size(100%);
+  }
+
+  progress {
+    pointer-events: none;
   }
 
   // &::before {
