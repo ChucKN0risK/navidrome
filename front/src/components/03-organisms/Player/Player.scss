@@ -32,8 +32,6 @@
   button {
     position: absolute;
     @include absolute-center;
-    background-color: transparent;
-    border: none;
     color: var(--white);
   }
 }

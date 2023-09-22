@@ -26,7 +26,7 @@
         max="100"
         type="range"
         step="1"
-        @change="updateSeekValue"
+        @change.prevent="updateSeekValue"
       >
       <progress value="0" min="0" max="100" ref="progressBar" />
     </div>
@@ -91,15 +91,19 @@ const updateProgress = () => {
 };
 
 const updateSeekValue = () => {
-  console.log(seekBar.value.value);
+  player.value.currentTime = Number(seekBar.value.value);
+  console.log(player.value);
 };
 
 const play = () => {
+  
   if (player.value.paused || player.value.ended) {
     isPlaying.value = true;
+    console.log('isPlaying:', isPlaying.value);
     return player.value.play();
   } else {
     isPlaying.value = false;
+    console.log('isPlaying:', isPlaying.value);
     return player.value.pause();
   }
 };

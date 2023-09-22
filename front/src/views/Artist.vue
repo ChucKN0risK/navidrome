@@ -12,7 +12,7 @@
             }
           }">
             <AlbumCover
-              :cover-url="fetchAlbumCover(album.id)"
+              :cover-url="albumCover[album.id]"
               :size="'small'"
               class="o-player__play__cover"
             />
@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useArtistStore } from '@/stores/artist';
 import { useAlbumStore } from '@/stores/album';
 import SpText from '@/components/01-atoms/SpText/SpText.vue';
@@ -38,12 +39,14 @@ const props = defineProps<{
 const { getArtist } = storeToRefs(useArtistStore());
 const { fetchArtist } = useArtistStore();
 const { getAlbumCover } = useAlbumStore();
-fetchArtist(props.id);
+fetchArtist(props.id).then(() => {
+  artist.value.album.forEach(album => fetchAlbumCover(album.id));
+});
 const artist = getArtist;
+const albumCover = ref<Record<string, string>>({});
 const fetchAlbumCover = async (albumId: string) => {
   const cover = await getAlbumCover(albumId);
-  console.log(cover);
-  return cover;
+  albumCover.value[albumId] = cover;
 };
 </script>
 

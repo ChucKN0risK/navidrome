@@ -72,3 +72,9 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+
+button:not([class]) {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
