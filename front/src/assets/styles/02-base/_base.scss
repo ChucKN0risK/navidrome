@@ -134,10 +134,6 @@ main {
 }
 
 aside {
-  @media only screen and (max-width: 800px) {
-    padding: var(--player-padding);
-  }
-
   @media only screen and (min-width: 801px) {
     padding: var(--base-space-4);
   }
@@ -153,3 +149,35 @@ a {
     background-color: var(--gray-7);
   }
 }
+
+.base-title {
+  @media only screen and (max-width: 800px) {
+    padding-left: var(--player-padding);
+    padding-right: var(--player-padding);
+  }
+
+  & + * {
+    margin-top: var(--base-space-3);
+  }
+}
+
+.base-list {
+
+}
+
+.base-list-item {
+  display: flex;
+  align-items: center;
+  padding-top: var(--base-space-2);
+  padding-bottom: var(--base-space-2);
+
+  @media only screen and (max-width: 800px) {
+    padding-left: var(--player-padding);
+    padding-right: var(--player-padding);
+  }
+
+  & > * + * {
+    margin-left: var(--base-space-2);
+  }
+}
+

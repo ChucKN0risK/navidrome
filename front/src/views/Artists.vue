@@ -15,8 +15,8 @@ const getArtists = computed(() => {
 <template>
   <main class="p-artists">
     <aside>
-      <SpText :text="'Artists'" :type="'subtitle'" :tag="'h1'" class="p-artists__title" />
-      <ul class="c-artists-list u-list-reset">
+      <SpText :text="'Artists'" :type="'subtitle'" :tag="'h1'" class="base-title" />
+      <ul class="u-list-reset">
         <li v-for="artist in getArtists" :key="artist.id">
           <RouterLink
             :to="{
@@ -25,7 +25,7 @@ const getArtists = computed(() => {
                 id: artist.id
               }
             }"
-            class="m-artist"
+            class="base-list-item"
           >
             <Avatar
               :icon="{
@@ -43,19 +43,3 @@ const getArtists = computed(() => {
   </main>
 </template>
 
-<style>
-  .p-artists__title + * {
-    margin-top: var(--base-space-3);
-  }
-
-  .m-artist {
-    display: flex;
-    align-items: center;
-    padding-top: var(--base-space-2);
-    padding-bottom: var(--base-space-2);
-
-    & > * + * {
-      margin-left: var(--base-space-2);
-    }
-  }
-</style>

@@ -5,10 +5,6 @@
       <sp-vector :glyph="'artists'" />
       <SpText :text="'Artists'" :type="'body-m'"/>
     </RouterLink>
-    <RouterLink to="/albums">
-      <sp-vector :glyph="'albums'" />
-      <SpText :text="'Albums'" :type="'body-m'"/>
-    </RouterLink>
     <RouterLink to="/playlists">
       <sp-vector :glyph="'playlists'" />
       <SpText :text="'Playlists'" :type="'body-m'"/>

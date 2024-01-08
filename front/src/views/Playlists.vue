@@ -13,10 +13,10 @@ const getPlaylists = computed(() => {
 </script>
 
 <template>
-  <main class="p-artists">
+  <main class="p-playlists">
     <aside>
-      <SpText :text="'Playlists'" :type="'subtitle'" :tag="'h1'" class="p-artists__title" />
-      <ul class="c-artists-list u-list-reset">
+      <SpText :text="'Playlists'" :type="'subtitle'" :tag="'h1'" class="base-title" />
+      <ul class="u-list-reset">
         <li v-for="playlist in getPlaylists" :key="playlist.id">
           <RouterLink
             :to="{
@@ -25,7 +25,7 @@ const getPlaylists = computed(() => {
                 id: playlist.id
               }
             }"
-            class="m-artist"
+            class="base-list-item"
           >
             <Avatar
               :icon="{
