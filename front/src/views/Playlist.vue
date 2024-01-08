@@ -1,9 +1,22 @@
 <template>
-  <main class="p-artists">
+  <main class="p-playlist">
     <aside>
-      <SpText v-if="playlist" :text="playlist.name" :type="'subtitle'" :tag="'h1'" class="p-artists__title" />
-      <ul v-if="playlist" class="c-albums-list u-list-reset">
-        <Song v-for="song in playlist.entry" :key="song.id" :song="song" :show-track-number="false" :show-album-cover="true" />
+      <SpText
+        v-if="playlist"
+        :text="playlist.name"
+        :type="'subtitle'"
+        :tag="'h1'"
+        class="base-title"
+      />
+      <ul v-if="playlist" class="u-list-reset">
+        <Song
+          v-for="song in playlist.entry"
+          :key="song.id"
+          :song="song"
+          :show-track-number="false"
+          :show-album-cover="true"
+          class="base-list-item"
+        />
       </ul>
     </aside>
   </main>
