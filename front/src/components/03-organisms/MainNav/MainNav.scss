@@ -3,7 +3,10 @@
 
   grid-area: nav;
   display: flex;
-  padding: var(--base-space-4);
+  
+  @media only screen and (max-width: 800px) {
+    padding: var(--player-padding);
+  }
   
   a {
     display: flex;

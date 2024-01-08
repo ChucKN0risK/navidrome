@@ -105,7 +105,7 @@ button {
     'player'
     'nav'
   ;
-  --nav-height: 4rem;
+  --nav-height: var(--base-space-12);
   --nav-width: 260px;
 
   display: grid;
@@ -127,14 +127,26 @@ main {
   grid-area: main;
   overflow-y: scroll;
   max-height: 100%;
-  padding: var(--base-space-4);
+
+  @media only screen and (min-width: 801px) {
+    padding: var(--base-space-4);
+  }
+}
+
+aside {
+  @media only screen and (max-width: 800px) {
+    padding: var(--player-padding);
+  }
+
+  @media only screen and (min-width: 801px) {
+    padding: var(--base-space-4);
+  }
 }
 
 a {
   --color: var(--gray-7); 
   text-decoration: none;
   color: var(--color);
-  padding: var(--base-space-2);
 
   &:hover {
     --color: var(--black);

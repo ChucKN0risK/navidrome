@@ -6,7 +6,8 @@
 
 /* Fonts */
 :root {
-  --font-text: 'Inter-Regular', sans-serif;
-  --font-text-semi-bold: 'Inter-SemiBold', sans-serif;
+  --font-text-small: 'Inter-Regular', sans-serif;
+  --font-text-large: 'Inter-SemiBold', sans-serif;
   --font-text-medium: 'Inter-Medium', sans-serif;
+  --font-text: var(--font-text-small);
 }

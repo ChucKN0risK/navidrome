@@ -2,7 +2,7 @@
   <main class="p-artists">
     <aside>
       <SpText v-if="artist" :text="artist.name" :type="'subtitle'" :tag="'h1'" class="p-artists__title" />
-      <ul v-if="artist" class="c-artists-list u-list-reset">
+      <ul v-if="artist" class="c-albums-list u-list-reset">
         <li v-for="album in artist.album" :key="album.id">
           <RouterLink :to="{
             name: 'album',
@@ -55,13 +55,12 @@ const fetchAlbumCover = async (albumId: string) => {
     margin-top: var(--base-space-3);
   }
 
-  .c-artists-list {
+  .c-albums-list {
     a {
       display: flex;
       align-items: center;
-      padding-top: var(--base-space-2);
-      padding-bottom: var(--base-space-2);
-      border-radius: var(--border-radius-small);
+      padding: var(--base-space-2) var(--player-padding);
+      gap: var(--base-space-2);
     }
   }
 </style>

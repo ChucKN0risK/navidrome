@@ -10,7 +10,7 @@
         <SpText :text="album.artist" :type="'section'" class="m-album-details__artist" />
         <SpText :text="album.name" :type="'title-1'" class="m-album-details__name" />
         <SpText :type="'body-s'" class="m-album-details__year">
-          {{ album.year }} • {{ secondsToHHMMSS(album.duration) }}
+          {{ album.year ? album.year : 'Date unknown' }} • {{ secondsToHHMMSS(album.duration) }}
         </SpText>
       </Stack>
     </div>

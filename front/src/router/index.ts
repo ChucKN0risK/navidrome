@@ -12,9 +12,20 @@ const router = createRouter({
       component: () => import('../views/Artists.vue')
     },
     {
+      path: '/playlists',
+      name: 'playlists',
+      component: () => import('../views/Playlists.vue')
+    },
+    {
       path: '/artists/:id',
       name: 'artist',
       component: () => import('../views/Artist.vue'),
+      props: true,
+    },
+    {
+      path: '/playlists/:id',
+      name: 'playlist',
+      component: () => import('../views/Playlist.vue'),
       props: true,
     },
     {

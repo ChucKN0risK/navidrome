@@ -1,6 +1,13 @@
 <template>
   <div v-if="song" class="o-player">
-    <audio controls :src="url" type="audio/mpeg" ref="player" @canplaythrough="setPlayerLoadingState" @timeupdate="updateProgress" />
+    <audio
+      ref="player"
+      controls
+      type="audio/mpeg"
+      :src="url"
+      @canplaythrough="setPlayerLoadingState"
+      @timeupdate="updateProgress"
+    />
     <div class="o-player__play">
       <AlbumCover
         v-if="album"
@@ -26,9 +33,9 @@
         max="100"
         type="range"
         step="1"
-        @change.prevent="updateSeekValue"
-      >
-      <progress value="0" min="0" max="100" ref="progressBar" />
+        @change="updateSeekValue"
+        @input="updateSeekStyle"
+      />
     </div>
   </div>
 </template>
@@ -54,17 +61,10 @@ const { getAlbum } = storeToRefs(useAlbumStore());
 const url = getNowPlayingUrl;
 const song = getCurrentSong;
 const player = ref(null as HTMLAudioElement);
-const progressBar = ref(null as HTMLProgressElement);
 const seekBar = ref(null as HTMLInputElement);
 const isPlaying = ref(false);
 const canPlay = ref(false);
 const album = getAlbum;
-
-// usePlayerStore().$subscribe((mutation, state) => {
-//   console.log(mutation)
-//   console.log(state)
-  
-// })
 
 watch(songId, () => {
   console.log('songId ref changed, do something!')
@@ -84,31 +84,29 @@ const setPlayerLoadingState = () => {
 };
 
 const updateProgress = () => {
-  if (player.value.duration) {
-    seekBar.value.value = `${Math.floor((player.value.currentTime / player.value.duration) * 100)}`;
-    progressBar.value.value = Math.floor((player.value.currentTime / player.value.duration) * 100);
-  }
+  const trackProgress = `${Math.floor((player.value.currentTime / player.value.duration) * 100)}`;
+  seekBar.value.value = trackProgress;
+  document.documentElement.style.setProperty('--progress-bar-value', `${trackProgress}%`);
 };
 
 const updateSeekValue = () => {
-  player.value.currentTime = Number(seekBar.value.value);
-  console.log(player.value);
+  player.value.currentTime = (Number(seekBar.value.value) * player.value.duration) / 100;
+  play();
+};
+
+const updateSeekStyle = () => {
+  document.documentElement.style.setProperty('--progress-bar-value', `${seekBar.value.value}%`);
 };
 
 const play = () => {
-  
   if (player.value.paused || player.value.ended) {
     isPlaying.value = true;
-    console.log('isPlaying:', isPlaying.value);
     return player.value.play();
   } else {
     isPlaying.value = false;
-    console.log('isPlaying:', isPlaying.value);
     return player.value.pause();
   }
 };
-
-
 </script>
 
 <style lang="scss">

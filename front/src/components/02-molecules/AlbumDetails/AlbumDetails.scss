@@ -1,27 +1,31 @@
-.m-album-details {
-  display: flex;
-  
-  @container (max-width: 400px) {
-    flex-direction: column;
-  }
-
-  @container (min-width: 401px) {
-    flex-direction: row;
-  }
-}
-
 .m-album-details-container {
   container: album-details / inline-size;
 }
 
+.m-album-details {
+  display: flex;
+  
+  @media only screen and (max-width: 800px) {
+    padding: var(--player-padding);
+  }
+  
+  @container album-details (max-width: 400px) {
+    flex-direction: column;
+  }
+
+  @container album-details (min-width: 401px) {
+    flex-direction: row;
+  }
+}
+
 .m-album-details__cover {
-  @container (max-width: 400px) {
+  @container album-details (max-width: 400px) {
     & + * {
       margin-top: var(--base-space-4);  
     }
   }
 
-  @container (min-width: 401px) {
+  @container album-details (min-width: 401px) {
     & + * {
       margin-left: var(--base-space-4);  
     }  

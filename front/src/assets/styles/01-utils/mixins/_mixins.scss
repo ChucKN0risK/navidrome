@@ -240,3 +240,67 @@
     --text-decoration: none;
   }
 }
+
+
+/// Input Type Range - Thumb
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   @include input-range-thumb() {
+///     border-radius: 50%;
+///   }
+///
+/// @example css - CSS output
+///   &::-webkit-slider-thumb {
+///     border-radius: 50%;
+///   }
+///   &::-moz-range-thumb {
+///     border-radius: 50%;
+///   }
+///   &::-ms-thumb {
+///     border-radius: 50%;
+///   }
+@mixin input-range-thumb() {
+  &::-webkit-slider-thumb {
+    @content;
+  }
+  &::-moz-range-thumb {
+    @content;
+  }
+  &::-ms-thumb {
+    @content;
+  }
+}
+
+/// Input Type Range - Track
+///
+/// @author Louis Chenais
+///
+/// @access public
+///
+/// @example scss - Usage
+///   @include input-range-track() {
+///     background-color: red;
+///   }
+///
+/// @example css - CSS output
+///   &::-webkit-slider-runnable-track {
+///     background-color: red;
+///   }
+///   &::-moz-range-track {
+///     background-color: red;
+///   }
+///   &::-ms-track {
+///     background-color: red;
+///   }
+@mixin input-range-track() {
+  &::-webkit-slider-runnable-track {
+    @content;
+  }
+  &::-ms-track {
+    @content;
+  }
+}

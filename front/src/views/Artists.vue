@@ -53,7 +53,6 @@ const getArtists = computed(() => {
     align-items: center;
     padding-top: var(--base-space-2);
     padding-bottom: var(--base-space-2);
-    border-radius: var(--border-radius);
 
     & > * + * {
       margin-left: var(--base-space-2);

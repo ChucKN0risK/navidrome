@@ -1,0 +1,43 @@
+// =======================
+// Components / Song
+// =======================
+.m-song {
+  container: song / inline-size;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: var(--base-space-2);
+  padding-bottom: var(--base-space-2);
+  gap: var(--base-space-2);
+}
+
+.m-song__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+  border: none;
+  color: var(--gray-9);
+  gap: var(--base-space-1);
+  @include text-body-xs;
+  
+  @media only screen and (max-width: 800px) {
+    padding-left: var(--player-padding);
+    padding-right: var(--player-padding);
+  }
+
+  @container song (min-width: 501px) {
+    align-items: center;
+    @include text-body-m;
+  }
+}
+
+.m-song__info__title {
+  color: var(--white);
+}
+
+.m-song__duration {
+  @container song (min-width: 501px) {
+    margin-left: auto;
+  }
+}
