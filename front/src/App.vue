@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
 import Player from '@/components/03-organisms/Player/Player.vue';
 import MainNav from '@/components/03-organisms/MainNav/MainNav.vue';
 </script>

@@ -56,7 +56,6 @@
     left: 0;
     bottom: 0;
     @include size(100%);
-
     -webkit-appearance: none;
     background: rgba(255, 255, 255, 0.6);
     background-image: linear-gradient(var(--progress-bar-color), var(--progress-bar-color));

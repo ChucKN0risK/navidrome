@@ -7,14 +7,15 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    coverUrl: string | Promise<string>;
+    coverUrl: string;
     size: 'small' | 'medium' | 'large';
   }>(),
   {
-    coverUrl: undefined,
+    coverUrl: '',
     size: 'medium',
   },
 );
+
 </script>
 
 <style lang="scss">

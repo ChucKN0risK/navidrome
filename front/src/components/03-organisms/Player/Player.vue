@@ -10,8 +10,8 @@
     />
     <div class="o-player__play">
       <AlbumCover
-        v-if="album"
-        :cover-url="album.largeImageUrl"
+        v-if="albumCover"
+        :cover-url="albumCover"
         :size="'small'"
         class="o-player__play__cover"
       />
@@ -41,11 +41,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { usePlayerStore } from '@/stores/player';
 import { useAlbumStore } from '@/stores/album';
 import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import Stack from '@/components/01-atoms/Stack/Stack.vue';
 import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
 import AlbumCover from '@/components/01-atoms/AlbumCover/AlbumCover.vue';
 // import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
@@ -57,26 +56,28 @@ import { storeToRefs } from 'pinia';
 
 const { loadSong, registerCurrentSong, setCurrentSong } = usePlayerStore();
 const { getNowPlayingUrl, getCurrentSong, songId } = storeToRefs(usePlayerStore());
-const { getAlbum } = storeToRefs(useAlbumStore());
 const url = getNowPlayingUrl;
 const song = getCurrentSong;
 const player = ref(null as HTMLAudioElement);
 const seekBar = ref(null as HTMLInputElement);
 const isPlaying = ref(false);
 const canPlay = ref(false);
-const album = getAlbum;
-
 watch(songId, () => {
   console.log('songId ref changed, do something!')
   loadSong(songId.value);
   registerCurrentSong(songId.value).then(() => {
-    setCurrentSong();
+    setCurrentSong().then(() => {
+      fetchAlbumCover(song.value.albumId);
+    });
   });
 })
 
-onMounted(() => {
-  // console.log('mounted', album)
-})
+const { getAlbumCover } = useAlbumStore();
+const albumCover = ref('');
+const fetchAlbumCover = async (albumId: string) => {
+  albumCover.value = await getAlbumCover(albumId);
+  return albumCover;
+};
 
 const setPlayerLoadingState = () => {
   canPlay.value = true;

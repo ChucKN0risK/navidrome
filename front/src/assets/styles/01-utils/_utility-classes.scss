@@ -27,3 +27,7 @@
   list-style: none;
   padding-inline-start: 0;
 }
+
+.u-text-truncate {
+  @include truncate-text;
+}

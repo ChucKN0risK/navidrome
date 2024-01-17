@@ -1,8 +1,8 @@
 <template>
   <main class="p-artists">
     <aside>
-      <SpText v-if="artist" :text="artist.name" :type="'subtitle'" :tag="'h1'" class="p-artists__title" />
-      <ul v-if="artist" class="c-albums-list u-list-reset">
+      <SpText v-if="artist" :text="artist.name" :type="'subtitle'" :tag="'h1'" class="base-title" />
+      <ul v-if="artist" class="base-list c-albums-list u-list-reset">
         <li v-for="album in artist.album" :key="album.id">
           <RouterLink :to="{
             name: 'album',
@@ -16,7 +16,7 @@
               :size="'small'"
               class="o-player__play__cover"
             />
-            <SpText :text="album.name" :type="'body-m'"/>
+            <SpText :text="album.name" :type="'body-m'" class="u-text-truncate" />
           </RouterLink>
         </li>
       </ul>
@@ -51,15 +51,14 @@ const fetchAlbumCover = async (albumId: string) => {
 </script>
 
 <style>
-  .p-artists__title + * {
+  /* .p-artists__title + * {
     margin-top: var(--base-space-3);
-  }
+  } */
 
   .c-albums-list {
     a {
       display: flex;
       align-items: center;
-      padding: var(--base-space-2) var(--player-padding);
       gap: var(--base-space-2);
     }
   }

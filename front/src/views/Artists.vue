@@ -1,17 +1,3 @@
-<script setup lang="ts">
-import { computed } from "vue";
-import { useArtistsStore } from "@/stores/artists";
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import Avatar from '@/components/01-atoms/Avatar/Avatar.vue';
-
-const artistsStore = useArtistsStore();
-const { fetchArtists } = useArtistsStore();
-fetchArtists();
-const getArtists = computed(() => {
-  return artistsStore.getArtists;
-});
-</script>
-
 <template>
   <main class="p-artists">
     <aside>
@@ -35,7 +21,7 @@ const getArtists = computed(() => {
               }"
               size="small"
             />
-            <SpText :text="artist.name" :type="'body-m'"/>
+            <SpText :text="artist.name" :type="'body-m'" class="u-text-truncate" />
           </RouterLink>
         </li>
       </ul>
@@ -43,3 +29,16 @@ const getArtists = computed(() => {
   </main>
 </template>
 
+<script setup lang="ts">
+import { computed } from "vue";
+import { useArtistsStore } from "@/stores/artists";
+import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import Avatar from '@/components/01-atoms/Avatar/Avatar.vue';
+
+const artistsStore = useArtistsStore();
+const { fetchArtists } = useArtistsStore();
+fetchArtists();
+const getArtists = computed(() => {
+  return artistsStore.getArtists;
+});
+</script>

@@ -191,7 +191,7 @@
 ///
 /// @example scss - Usage
 ///   .foo {
-///     @include limit-text;
+///     @include truncate-text;
 ///   }
 ///
 /// @example css - CSS output
@@ -201,7 +201,7 @@
 ///     text-overflow: ellipsis;
 ///   }
 ///
-@mixin limit-text() {
+@mixin truncate-text() {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -12,6 +12,8 @@ services:
       ND_LOGLEVEL: info  
       ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: ""
+      ND_LASTFM_ENABLED: "false"
+      ND_ENABLEDOWNLOADS: "true"
     volumes:
       - "/Users/lucho/dev/navidrome:/data"
       - "/Users/lucho/Music/Music:/music:ro"

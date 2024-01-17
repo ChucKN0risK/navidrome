@@ -22,7 +22,6 @@ const props = withDefaults(
     glyph: string | Function;
     width?: number;
     height?: number;
-    size?: number;
     color?: string;
     filter?: string;
     fullWidth?: boolean;
@@ -30,7 +29,6 @@ const props = withDefaults(
   {
     width: undefined,
     height: undefined,
-    size: undefined,
     color: undefined,
     filter: undefined,
     fullWidth: false,
