@@ -8,7 +8,7 @@
         :tag="'h1'"
         class="base-title"
       />
-      <SpText :type="'body-s'">
+      <SpText v-if="playlist && playlist.entry" :type="'body-s'">
         {{ playlist.entry.length }} track(s)
       </SpText>
       <ul v-if="playlist" class="p-playlist__list base-list u-list-reset">
@@ -62,6 +62,7 @@ const props = defineProps<{
 
 const { fetchPlaylist } = usePlaylistStore();
 fetchPlaylist(props.id).then(() => {
+  // console.log('PL', playlist.value);
   playlist.value.entry.forEach(entry => fetchAlbumCover(entry.albumId));
 });
 const { getPlaylist } = storeToRefs(usePlaylistStore());

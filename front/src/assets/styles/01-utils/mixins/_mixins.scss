@@ -205,6 +205,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  // so we don't have to set a width on the parent
+  // https://x.com/aaroniker_me/status/1751716444411154539?s=20
+  display: table-cell;
 }
 
 /// Mixin setting a link default style

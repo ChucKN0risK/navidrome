@@ -24,10 +24,8 @@ export const usePlaylistsStore = defineStore('playlistsStore', {
       try {
         const data = await api.getPlaylists();
         const playlists: RootState['playlists'] = [];
-        console.log(data.playlists.playlist)
         data.playlists.playlist?.map((playlist) => {
           playlists.push(playlist);
-          console.log(playlists)
         });
         this.playlists = playlists;
       } catch (error) {

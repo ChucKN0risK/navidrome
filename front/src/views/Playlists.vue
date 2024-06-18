@@ -1,17 +1,3 @@
-<script setup lang="ts">
-import { computed } from "vue";
-import { usePlaylistsStore } from "@/stores/playlists";
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import Avatar from '@/components/01-atoms/Avatar/Avatar.vue';
-
-const playlistsStore = usePlaylistsStore();
-const { fetchPlaylists } = usePlaylistsStore();
-fetchPlaylists();
-const getPlaylists = computed(() => {
-  return playlistsStore.getPlaylists;
-});
-</script>
-
 <template>
   <main class="p-playlists">
     <aside>
@@ -42,3 +28,17 @@ const getPlaylists = computed(() => {
     </aside>
   </main>
 </template>
+
+<script setup lang="ts">
+import { computed } from "vue";
+import { usePlaylistsStore } from "@/stores/playlists";
+import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import Avatar from '@/components/01-atoms/Avatar/Avatar.vue';
+
+const playlistsStore = usePlaylistsStore();
+const { fetchPlaylists } = usePlaylistsStore();
+fetchPlaylists();
+const getPlaylists = computed(() => {
+  return playlistsStore.getPlaylists;
+});
+</script>
