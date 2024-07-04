@@ -47,6 +47,13 @@
   line-height: 1.1;
 }
 
+@mixin text-body-xs-bold {
+  font-family: var(--font-text-large);
+  font-weight: 400;
+  font-size: 0.6rem;
+  line-height: 1.1;
+}
+
 @mixin text-section {
   font-family: var(--font-text-medium);
   font-weight: 500;
