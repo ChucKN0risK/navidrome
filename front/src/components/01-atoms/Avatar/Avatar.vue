@@ -9,7 +9,7 @@
     ]"
     :style="!image && color ? `background-color: var(--${color});` : false"
   >
-    <sp-vector
+    <vector
       v-if="!image && icon"
       :glyph="icon.glyph"
       :width="icon.width"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
+import Vector from '@/components/01-atoms/Vector/Vector.vue';
 
 const props = withDefaults(
   defineProps<{

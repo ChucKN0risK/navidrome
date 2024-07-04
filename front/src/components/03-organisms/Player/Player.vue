@@ -16,12 +16,12 @@
         class="o-player__play__cover"
       />
       <button @click.prevent="play">
-        <SpVector :glyph="isPlaying ? 'pause' : 'play'" :width="30" :height="30" />
+        <Vector :glyph="isPlaying ? 'pause' : 'play'" :width="30" :height="30" />
       </button>
     </div>
     <div v-if="song" class="o-player__info">
-      <SpText :type="'body-m'" :text="song.title" />
-      <SpText :type="'body-s'" :text="song.artist" />
+      <Text :type="'body-m'" :text="song.title" />
+      <Text :type="'body-s'" :text="song.artist" />
     </div>
     <div class="o-player__progress">
       <label for="seekbar" class="u-visually-hidden">Seekbar</label>
@@ -44,8 +44,8 @@
 import { ref, watch } from 'vue';
 import { usePlayerStore } from '@/stores/player';
 import { useAlbumStore } from '@/stores/album';
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
+import Text from '@/components/01-atoms/Text/Text.vue';
+import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import AlbumCover from '@/components/01-atoms/AlbumCover/AlbumCover.vue';
 // import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
 import { storeToRefs } from 'pinia';

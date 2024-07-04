@@ -9,7 +9,7 @@ Aussi mis dans le `main.ts`.
 
 ## State of the project
 - Download of a track doesn't work on the custom app. It does on the Navidrome UI though. The request is triggered but the file never gets downloaded byt the browser.
-
+- Tester l'app en static avec Astro en utilisant fetch(): https://docs.astro.build/en/guides/data-fetching/#fetch-in-astro
 
 ## To Do
 - [] Mettre en cache le résultats des requetes des pages principales
@@ -18,6 +18,12 @@ Aussi mis dans le `main.ts`.
 - [] Garder en tête toute la logique du player expliqué ici : https://begin.com/blog/posts/2023-09-28-introducing-enhance-music#enhancing-the-audio-player
 - [] Utiliser la [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API) si on veut afficher le controle de la lecture sur les notifications mobile.
 - [] Tester l'app en tant que PWA : https://blog.openreplay.com/vue3--building-a-progressive-web-app/
+- [] Styliser le menu des chansons
+  - [] Ajouter l'icon de download
+  - [] Ajouter l'icon de "Play next"
+- Ajouter le temps écoulé de la chanson / temps total du track
+- Faire en sorte que le menu d'un élément d'une liste soit un block qui prenne toute la largeur de l'écran et qui vienne du bas (comme sur Bandcamp ou Soundcloud) sur small viewports. Sur large viewport on implémente un click droit normal avec les même éléments.
+- Implémenter une <SearchBar> qui sera dans le menu en bas pour les petits viewports et dans le <main> pour les viewports plus larges
 
 ## To keep in mind
 - A PWA is based on Service Workers + the Cache API

@@ -14,7 +14,7 @@
     :type="type"
   >
     <slot v-if="!isLoading" name="icon">
-      <sp-vector
+      <vector
         v-if="icon && !iconCircled && !iconOnRight"
         :glyph="icon"
         :color="iconColor"
@@ -34,7 +34,7 @@
     </span>
     <slot name="tooltip" />
     <slot v-if="isLoading || iconOnRight" name="icon-right">
-      <sp-vector
+      <vector
         :glyph="isLoading ? 'loader' : icon ? icon : ''"
         :color="
           look === 'primary' || look === 'destructive' ? 'icon-on-colored-bg' : 'icon-default'
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
+import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import VectorWrapper from '@/components/02-molecules/VectorWrapper/VectorWrapper.vue';
 import { Look, Size } from '@/types/button.types';
 

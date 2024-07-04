@@ -31,3 +31,11 @@
 .u-text-truncate {
   @include truncate-text;
 }
+
+.u-overflow\:hidden {
+  overflow: hidden !important;
+}
+
+.u-pointer-events\:none {
+  pointer-events: none !important;
+}

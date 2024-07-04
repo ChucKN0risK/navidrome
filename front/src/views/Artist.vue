@@ -1,7 +1,7 @@
 <template>
   <main class="p-artists">
     <aside>
-      <SpText v-if="artist" :text="artist.name" :type="'subtitle'" :tag="'h1'" class="base-title" />
+      <Text v-if="artist" :text="artist.name" :type="'subtitle'" :tag="'h1'" class="base-title" />
       <ul v-if="artist" class="base-list c-albums-list u-list-reset">
         <li v-for="album in artist.album" :key="album.id">
           <RouterLink :to="{
@@ -16,7 +16,7 @@
               :size="'small'"
               class="o-player__play__cover"
             />
-            <SpText :text="album.name" :type="'body-m'" class="u-text-truncate" />
+            <Text :text="album.name" :type="'body-m'" class="u-text-truncate" />
           </RouterLink>
         </li>
       </ul>
@@ -28,7 +28,7 @@
 import { ref } from 'vue';
 import { useArtistStore } from '@/stores/artist';
 import { useAlbumStore } from '@/stores/album';
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import Text from '@/components/01-atoms/Text/Text.vue';
 import AlbumCover from '@/components/01-atoms/AlbumCover/AlbumCover.vue';
 import { storeToRefs } from 'pinia'
 

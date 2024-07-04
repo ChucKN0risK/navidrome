@@ -28,7 +28,7 @@
       >
         <Stack :space-unit="2">
           <slot name="title">
-            <SpText
+            <Text
               :text="title"
               :type="'subtitle'"
               :color="look === 'dashed' ? 'text-low-emphasis' : 'text-high-emphasis'"
@@ -36,7 +36,7 @@
             />
           </slot>
           <slot name="subtitle">
-            <SpText
+            <Text
               v-if="subtitle"
               :text="subtitle"
               type="body-s"
@@ -70,12 +70,12 @@
         rel="noreferrer"
       >
         <Stack :space-unit="2" :axis="'x'">
-          <SpText
+          <Text
             :type="'body-m'"
             :color="ctaLook === 'primary' ? 'text-on-colored-bg' : 'text-high-emphasis'"
             :text="ctaText ?? 'Send feedback'"
           />
-          <SpVector
+          <Vector
             :glyph="'external-link'"
             :color="ctaLook === 'primary' ? 'icon-on-colored-bg' : 'icon-default'"
           />
@@ -91,10 +91,10 @@ import { RouteLocationRaw } from 'vue-router';
 import { TrackingValue } from '@/types/productMarketFit.types';
 import { Look } from '@/types/button.types';
 
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import Text from '@/components/01-atoms/Text/Text.vue';
 import Stack from '@/components/01-atoms/Stack/Stack.vue';
-import SpLink from '@/components/01-atoms/SpLink/SpLink.vue';
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
+// import SpLink from '@/components/01-atoms/SpLink/SpLink.vue';
+import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import SpButton from '@/components/02-molecules/SpButton/SpButton.vue';
 
 type CardProps = {

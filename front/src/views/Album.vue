@@ -4,26 +4,17 @@
     <ul v-if="album" class="o-song-list base-list u-list-reset">
       <li v-for="song in album.song" :key="song.id">
         <Song :song="song" :show-artist="false" />
-        <VDropdown
-          :distance="6"
+        <button
           class="o-song__options"
+          @click.once="showDrawer"
         >
-          <!-- This will be the popover reference (for the events and position) -->
-          <button>
-            <SpVector
-              :glyph="'dots-horizontal'" :color="'white'" :width="20" :height="20"
-            />
-          </button>
-
-          <!-- This will be the content of the popover -->
-          <template #popper>
-            <ul class="u-list-reset">
-              <li v-for="option in getSongOptions(song.id)" :key="option.name">
-                <button @click.prevent="option.action">{{ option.name }}</button>
-              </li>
-            </ul>
-          </template>
-        </VDropdown>
+          <Vector
+            :glyph="'dots-vertical'"
+            :color="'gray-10'"
+            :width="20"
+            :height="20"
+          />
+        </button>
       </li>
     </ul>
   </Stack>
@@ -32,7 +23,7 @@
 <script setup lang="ts">
 import { useAlbumStore } from '@/stores/album';
 import Stack from '@/components/01-atoms/Stack/Stack.vue';
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
+import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import AlbumDetails from '@/components/02-molecules/AlbumDetails/AlbumDetails.vue';
 import Song from '@/components/02-molecules/Song/Song.vue';
 import { storeToRefs } from 'pinia';
@@ -46,6 +37,10 @@ const { fetchAlbum } = useAlbumStore();
 fetchAlbum(props.albumId);
 const { getAlbum } = storeToRefs(useAlbumStore());
 const album = getAlbum;
+
+const showDrawer = () => {
+  console.log('show drawer');
+}
 
 const download = async (songId: string) => {
   try {
@@ -74,14 +69,14 @@ const getSongOptions = (songId: string) => {
     },
     {
       name: 'Play next',
-      icon: 'download',
+      icon: 'add-to-queue',
       action: () => playNext(songId)
     },
-    {
-      name: 'Play later',
-      icon: 'download',
-      action: () => playLater(songId)
-    },
+    // {
+    //   name: 'Play later',
+    //   icon: 'download',
+    //   action: () => playLater(songId)
+    // },
   ];
 };
 </script>

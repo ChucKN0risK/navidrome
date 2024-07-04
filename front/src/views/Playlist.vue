@@ -1,16 +1,16 @@
 <template>
   <main class="p-playlist">
     <aside>
-      <SpText
+      <Text
         v-if="playlist"
         :text="playlist.name"
         :type="'subtitle'"
         :tag="'h1'"
         class="base-title"
       />
-      <SpText v-if="playlist && playlist.entry" :type="'body-s'">
+      <Text v-if="playlist && playlist.entry" :type="'body-s'">
         {{ playlist.entry.length }} track(s)
-      </SpText>
+      </Text>
       <ul v-if="playlist" class="p-playlist__list base-list u-list-reset">
         <li
           v-for="song in playlist.entry"
@@ -20,26 +20,17 @@
             :song="song"
             :album-cover="albumCover[song.albumId]"
           />
-          <VDropdown
-            :distance="6"
+          <button
             class="o-song__options"
+            @click.prevent="openItemOptions(song.id)"
           >
-            <!-- This will be the popover reference (for the events and position) -->
-            <button>
-              <SpVector
-                :glyph="'dots-horizontal'" :color="'white'" :width="20" :height="20"
-              />
-            </button>
-
-            <!-- This will be the content of the popover -->
-            <template #popper>
-              <ul class="u-list-reset">
-                <li v-for="option in getSongOptions(song.id)" :key="option.name">
-                  <button @click.prevent="option.action">{{ option.name }}</button>
-                </li>
-              </ul>
-            </template>
-          </VDropdown>
+            <Vector
+              :glyph="'dots-vertical'"
+              :color="'gray-10'"
+              :width="20"
+              :height="20"
+            />
+          </button>
         </li>
       </ul>
     </aside>
@@ -50,8 +41,9 @@
 import { ref } from 'vue';
 import { usePlaylistStore } from '@/stores/playlist';
 import { useAlbumStore } from '@/stores/album';
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
-import SpVector from '@/components/01-atoms/SpVector/SpVector.vue';
+import { useDrawerStore } from '@/stores/drawer';
+import Text from '@/components/01-atoms/Text/Text.vue';
+import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import Song from '@/components/02-molecules/Song/Song.vue';
 import { storeToRefs } from 'pinia';
 import { api } from '@/main';
@@ -74,42 +66,10 @@ const fetchAlbumCover = async (albumId: string) => {
   albumCover.value[albumId] = cover;
 };
 
-const download = async (songId: string) => {
-  try {
-    console.log('dl')
-    await api.download({ id: songId, format: 'raw'})
-  } catch (error) {
-    alert(error)
-    console.log(error)
-  }
-};
-
-const playNext = (songId: string) => {
-  console.log(`Play next ${songId}`);
-};
-
-const playLater = (songId: string) => {
-  console.log(`Play Later ${songId}`);
-};
-
-const getSongOptions = (songId: string) => {
-  return [
-    {
-      name: 'Download',
-      icon: 'download',
-      action: () => download(songId)
-    },
-    {
-      name: 'Play next',
-      icon: 'download',
-      action: () => playNext(songId)
-    },
-    {
-      name: 'Play later',
-      icon: 'download',
-      action: () => playLater(songId)
-    },
-  ];
+const { setItem, setDrawerOpenState } = useDrawerStore();
+const openItemOptions = (songId: string) => {
+  setDrawerOpenState(true);
+  setItem(songId);
 };
 </script>
 

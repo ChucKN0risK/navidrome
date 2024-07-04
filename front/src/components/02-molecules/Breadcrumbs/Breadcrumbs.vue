@@ -8,12 +8,12 @@
           :tracking-value="element.trackingValue"
           class="m-breadcrumbs__link"
         >
-          <sp-text
+          <text
             :text="element.text"
             :class="element.croppable ? 'm-breadcrumbs__croppable-text' : ''"
           />
         </sp-link>
-        <sp-text
+        <text
           v-else
           :text="element.text"
           :color="'text-low-emphasis'"
@@ -33,7 +33,7 @@
 import { defineComponent, PropType } from 'vue';
 import { BreadcrumbsElementsType } from '@/types/breadcrumbs.types';
 import SpLink from '@/components/01-atoms/SpLink/SpLink.vue';
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import Text from '@/components/01-atoms/Text/Text.vue';
 
 export default defineComponent({
   name: 'Breadcrumbs',
@@ -45,7 +45,7 @@ export default defineComponent({
   },
   components: {
     SpLink,
-    SpText,
+    Text,
   },
 });
 </script>

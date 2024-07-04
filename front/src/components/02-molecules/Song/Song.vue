@@ -1,11 +1,10 @@
 <template>
   <button class="m-song" @click.prevent="setCurrentTrack(song.id)">
-    <div v-if="albumCover" class="m-song__cover">
-      <AlbumCover
-        :cover-url="albumCover"
-        :size="'small'"
-      />
-    </div>
+    <AlbumCover
+      class="m-song__cover"
+      :cover-url="albumCover"
+      :size="'small'"
+    />
     <div class="m-song__info">
       <span v-if="showTrackNumber">{{ song.track }}</span>
       <span class="m-song__info__title">{{ song.title }}</span>
@@ -26,7 +25,7 @@ const props = withDefaults(
     song: Child;
     showTrackNumber?: boolean;
     showArtist?: boolean;
-    albumCover?: string | Promise<string>;
+    albumCover?: string | undefined;
   }>(),
   {
     showTrackNumber: false,

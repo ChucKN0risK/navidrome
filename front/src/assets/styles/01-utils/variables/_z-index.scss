@@ -24,23 +24,8 @@
 
   // Z-Index Applications
   // --------------------------------------
-  --z-index-aside: var(--z-index-1);
+  --z-index-main-nav: var(--z-index-1);
+  --z-index-player: var(--z-index-1);
 
-  --z-index-table-content: var(--z-index-4);
-
-  --z-index-table-row-head: var(--z-index-5);
-  --z-index-repository-sources-panel: var(--z-index-5);
-
-  --z-index-main-header: var(--z-index-6);
-  --z-index-getting-started-summary: var(--z-index-6);
-  --z-index-dropdown-content: var(--z-index-6);
-  --z-index-card-action-toggle: var(--z-index-6);
-
-  --z-index-main-panel: var(--z-index-7);
-
-  --z-index-modal: var(--z-index-8);
-
-  --z-index-modal-content: var(--z-index-9);
-
-  --z-index-toast: var(--z-index-10);
+  --z-index-drawer: var(--z-index-2);
 }

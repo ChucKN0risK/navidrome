@@ -19,6 +19,10 @@
   audio {
     display: none;
   }
+
+  @media only screen and (max-width: 800px) {
+    border-top: var(--border);
+  }
 }
 
 .o-player__play {

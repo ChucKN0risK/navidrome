@@ -1,7 +1,7 @@
 <template>
   <main class="p-artists">
     <aside>
-      <SpText :text="'Artists'" :type="'subtitle'" :tag="'h1'" class="base-title" />
+      <Text :text="'Artists'" :type="'subtitle'" :tag="'h1'" class="base-title" />
       <ul class="u-list-reset">
         <li v-for="artist in getArtists" :key="artist.id">
           <RouterLink
@@ -21,7 +21,7 @@
               }"
               size="small"
             />
-            <SpText :text="artist.name" :type="'body-m'" class="u-text-truncate" />
+            <Text :text="artist.name" :type="'body-m'" class="u-text-truncate" />
           </RouterLink>
         </li>
       </ul>
@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useArtistsStore } from "@/stores/artists";
-import SpText from '@/components/01-atoms/SpText/SpText.vue';
+import Text from '@/components/01-atoms/Text/Text.vue';
 import Avatar from '@/components/01-atoms/Avatar/Avatar.vue';
 
 const artistsStore = useArtistsStore();

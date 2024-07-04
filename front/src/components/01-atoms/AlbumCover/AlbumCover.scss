@@ -3,7 +3,6 @@
   overflow: hidden;
   @include size(var(--size));
   aspect-ratio: 1/1;
-  flex-shrink: 0;
 }
 
 .a-album-cover--small {
