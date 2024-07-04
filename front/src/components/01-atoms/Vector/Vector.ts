@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 
-import SpVector from './SpVector.vue';
+import Vector from './Vector.vue';
 
 // TODO: Skip for now, open an issue on vitest + vite-plugin-svg-icons
-describe.skip('SpVector.vue', () => {
+describe.skip('Vector.vue', () => {
   it('renders glyph', () => {
-    const wrapper = mount(SpVector, {
+    const wrapper = mount(Vector, {
       props: {
         glyph: 'success-filled',
       },
@@ -25,7 +25,7 @@ describe.skip('SpVector.vue', () => {
   });
 
   it('renders glyph as function', () => {
-    const wrapper = mount(SpVector, {
+    const wrapper = mount(Vector, {
       props: {
         glyph: () => 'success-filled',
       },
@@ -44,7 +44,7 @@ describe.skip('SpVector.vue', () => {
   });
 
   it('renders glyph with specific width and height', () => {
-    const wrapper = mount(SpVector, {
+    const wrapper = mount(Vector, {
       props: {
         glyph: 'success-filled',
         width: 20,
@@ -69,7 +69,7 @@ describe.skip('SpVector.vue', () => {
   // Will open a PR if the error is still on after some time
 
   // it('renders glyphs when changing props value', () => {
-  //   const wrapper = mount(SpVector, {
+  //   const wrapper = mount(Vector, {
   //     props: {
   //       glyph: 'success-filled',
   //     },

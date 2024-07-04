@@ -48,5 +48,5 @@ const symbolId = computed(() => `#icon-${fileName.value}`);
 </script>
 
 <style lang="scss">
-@import './SpVector.scss';
+@import './Vector.scss';
 </style>
