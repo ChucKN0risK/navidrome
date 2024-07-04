@@ -23,6 +23,14 @@ strong {
   @include text-body-s;
 }
 
+.a-text--body-xs {
+  @include text-body-xs;
+}
+
+.a-text--body-xs-bold {
+  @include text-body-xs-bold;
+}
+
 .a-text--section {
   @include text-section;
 }

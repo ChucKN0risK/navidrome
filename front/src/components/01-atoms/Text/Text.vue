@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { TextStyle } from '@/types/text.types';
+import type { TextStyle } from '@/types/text.types';
 
 const props = withDefaults(
   defineProps<{
@@ -69,5 +69,5 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import './SpText.scss';
+@import './Text.scss';
 </style>
