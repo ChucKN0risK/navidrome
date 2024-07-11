@@ -7,9 +7,21 @@
         class="m-album-details__cover"
       />
       <Stack :space-unit="1">
-        <Text :text="album.artist" :type="'section'" class="m-album-details__artist" />
-        <Text :text="album.name" :type="'title-1'" class="m-album-details__name" />
-        <Text :type="'body-s'" class="m-album-details__year">
+        <Text
+          :text="album.artist"
+          :type="'section'"
+          class="m-album-details__artist"
+        />
+        <Text
+          :tag="'h1'"
+          :text="album.name"
+          :type="'title-2'"
+          class="m-album-details__name"
+        />
+        <Text
+          :type="'body-s'"
+          class="m-album-details__year"
+        >
           {{ album.year ? album.year : 'Date unknown' }} • {{ secondsToHHMMSS(album.duration) }}
         </Text>
       </Stack>
@@ -30,5 +42,5 @@ const props = defineProps<{
 </script>
 
 <style lang="scss">
-@import './AlbumDetails.scss';
+  @import './AlbumDetails.scss';
 </style>

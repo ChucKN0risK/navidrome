@@ -18,12 +18,16 @@ Aussi mis dans le `main.ts`.
 - [] Garder en tête toute la logique du player expliqué ici : https://begin.com/blog/posts/2023-09-28-introducing-enhance-music#enhancing-the-audio-player
 - [] Utiliser la [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API) si on veut afficher le controle de la lecture sur les notifications mobile.
 - [] Tester l'app en tant que PWA : https://blog.openreplay.com/vue3--building-a-progressive-web-app/
-- [] Styliser le menu des chansons
-  - [] Ajouter l'icon de download
-  - [] Ajouter l'icon de "Play next"
 - Ajouter le temps écoulé de la chanson / temps total du track
 - Faire en sorte que le menu d'un élément d'une liste soit un block qui prenne toute la largeur de l'écran et qui vienne du bas (comme sur Bandcamp ou Soundcloud) sur small viewports. Sur large viewport on implémente un click droit normal avec les même éléments.
-- Implémenter une <SearchBar> qui sera dans le menu en bas pour les petits viewports et dans le <main> pour les viewports plus larges
+- [x] Implémenter une <SearchBar> qui sera dans le menu en bas pour les petits viewports et dans le <main> pour les viewports plus larges
+- [] Remplacer le DOM du <Drawer> par l'élément <Dialog> natif: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#usage_notes
+- [x] Playlist view: Mettre la durée d'un track tout à droite quand pour large viewports
+- [] Trouver un moyen de charger dynamiquement les composants selon la taille du viewport
+  - [] Lister toutes les playlist dans le <MainNav> pour large viewports
+  - [] <Player> éxiste uniquement pour small viewports si y'a un track qui joue (ou alors on fait un empty state)
+  - [] <Drawer> éxiste uniquement pour small viewports
+  - [] <SearchBar> éxiste uniquement pour large viewports dans la sidebar
 
 ## To keep in mind
 - A PWA is based on Service Workers + the Cache API

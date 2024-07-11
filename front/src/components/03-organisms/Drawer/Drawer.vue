@@ -7,7 +7,7 @@
       @keydown.esc.exact="closeDrawer"
     >
       <li v-for="option in getSongOptions(item)" :key="option.name">
-        <vector :glyph="option.icon" />
+        <Vector :glyph="option.icon" />
         <button @click.prevent="option.action">
           <Text :text="option.name" />
         </button>
@@ -72,7 +72,7 @@
     return [
       {
         name: 'Download',
-        icon: 'arrow-down',
+        icon: 'download',
         action: () => download(songId)
       },
       {
@@ -90,5 +90,5 @@
 </script>
 
 <style lang="scss">
-@import './Drawer.scss';
+  @import './Drawer.scss';
 </style>

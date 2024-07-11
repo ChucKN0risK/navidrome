@@ -51,5 +51,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import './Breadcrumbs.scss';
+  @import './Breadcrumbs.scss';
 </style>

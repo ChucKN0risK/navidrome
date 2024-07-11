@@ -1,6 +1,6 @@
 :root {
   --play-button-size: var(--base-space-14);
-  --progress-bar-height: 4px;
+  --progress-bar-height: 2px;
   --progress-bar-value: 0%;
   --progress-bar-color: tomato;
   --player-height: calc(var(--play-button-size) + var(--progress-bar-height));
@@ -9,8 +9,8 @@
 
 .o-player {
   grid-area: player;
-  display: flex;
   display: grid;
+  align-self: flex-end;
   grid-template-areas:
     "play-state info"
     "playback playback";

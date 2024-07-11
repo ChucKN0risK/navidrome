@@ -1,0 +1,11 @@
+.o-empty-state {
+  flex: 1;
+  @include flex-absolute-center;
+}
+
+.o-empty-state__icon {
+  @include flex-absolute-center;
+  border-radius: 100%;
+  padding: var(--base-space-2);
+  background-color: var(--gray-11);
+}

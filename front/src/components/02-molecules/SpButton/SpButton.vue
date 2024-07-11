@@ -14,13 +14,13 @@
     :type="type"
   >
     <slot v-if="!isLoading" name="icon">
-      <vector
+      <Vector
         v-if="icon && !iconCircled && !iconOnRight"
         :glyph="icon"
         :color="iconColor"
         class="m-button__icon"
       />
-      <vector-wrapper
+      <Vector-wrapper
         v-if="icon && iconCircled && !iconOnRight"
         :size="20"
         :glyph-size="12"
@@ -34,7 +34,7 @@
     </span>
     <slot name="tooltip" />
     <slot v-if="isLoading || iconOnRight" name="icon-right">
-      <vector
+      <Vector
         :glyph="isLoading ? 'loader' : icon ? icon : ''"
         :color="
           look === 'primary' || look === 'destructive' ? 'icon-on-colored-bg' : 'icon-default'
@@ -85,5 +85,5 @@ const props = withDefaults(
 </script>
 
 <style lang="scss">
-@import './SpButton.scss';
+  @import './SpButton.scss';
 </style>

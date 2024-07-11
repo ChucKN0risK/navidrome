@@ -148,5 +148,5 @@ const getAspectRatio = () => {
 </script>
 
 <style lang="scss">
-@import './Card.scss';
+  @import './Card.scss';
 </style>

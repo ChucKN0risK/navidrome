@@ -15,6 +15,6 @@ export const secondsToHHMMSS = (totalSeconds: number) => {
   if (seconds < 10) { seconds = '0' + seconds; }
 
   return hours < 1 ?
-    minutes + ':' + seconds :
-    hours + ':' + minutes + ':' + seconds;
+    `${minutes}:${seconds}` :
+    `${hours}:${minutes}:${seconds}`;
 }

@@ -1,6 +1,7 @@
 <template>
   <button class="m-song" @click.prevent="setCurrentTrack(song.id)">
     <AlbumCover
+      v-if="albumCover"
       class="m-song__cover"
       :cover-url="albumCover"
       :size="'small'"
@@ -8,8 +9,8 @@
     <div class="m-song__info">
       <span v-if="showTrackNumber">{{ song.track }}</span>
       <span class="m-song__info__title">{{ song.title }}</span>
-      <span v-if="showArtist">{{ song.artist }}</span>
-      <span class="m-song__duration">{{ secondsToHHMMSS(song.duration) }}</span>
+      <span v-if="showArtist" class="m-song__info__artist">{{ song.artist }}</span>
+      <span class="m-song__info__duration">{{ secondsToHHMMSS(song.duration) }}</span>
     </div>
   </button>
 </template>
@@ -40,5 +41,5 @@ const setCurrentTrack = (songId: string) => {
 </script>
 
 <style lang="scss">
-@import './Song.scss';
+  @import './Song.scss';
 </style>

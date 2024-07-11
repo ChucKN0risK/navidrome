@@ -9,7 +9,7 @@
     ]"
     :style="!image && color ? `background-color: var(--${color});` : false"
   >
-    <vector
+    <Vector
       v-if="!image && icon"
       :glyph="icon.glyph"
       :width="icon.width"
@@ -48,5 +48,5 @@ const props = withDefaults(
 </script>
 
 <style lang="scss">
-@import './Avatar.scss';
+  @import './Avatar.scss';
 </style>

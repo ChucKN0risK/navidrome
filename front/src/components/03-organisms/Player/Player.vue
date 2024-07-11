@@ -111,5 +111,5 @@ const play = () => {
 </script>
 
 <style lang="scss">
-@import './Player.scss';
+  @import './Player.scss';
 </style>

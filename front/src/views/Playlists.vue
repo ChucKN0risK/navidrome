@@ -2,7 +2,7 @@
   <main class="p-playlists">
     <aside>
       <Text :text="'Playlists'" :type="'subtitle'" :tag="'h1'" class="base-title" />
-      <ul class="u-list-reset">
+      <ul class="base-list u-list-reset">
         <li v-for="playlist in getPlaylists" :key="playlist.id">
           <RouterLink
             :to="{
@@ -11,7 +11,6 @@
                 id: playlist.id
               }
             }"
-            class="base-list-item"
           >
             <Avatar
               :icon="{
@@ -21,7 +20,7 @@
               }"
               size="small"
             />
-            <Text :text="playlist.name" :type="'body-m'"/>
+            <Text :text="playlist.name" :type="'body-m'" color="text-high-emphasis"/>
           </RouterLink>
         </li>
       </ul>

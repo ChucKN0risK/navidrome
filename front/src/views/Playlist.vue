@@ -1,16 +1,18 @@
 <template>
   <main class="p-playlist">
-    <aside>
-      <Text
-        v-if="playlist"
-        :text="playlist.name"
-        :type="'subtitle'"
-        :tag="'h1'"
-        class="base-title"
-      />
-      <Text v-if="playlist && playlist.entry" :type="'body-s'">
-        {{ playlist.entry.length }} track(s)
-      </Text>
+    <Stack :tag="'aside'" :space-unit="4">
+      <Stack :space-unit="1">
+        <Text
+          v-if="playlist"
+          :text="playlist.name"
+          :type="'subtitle'"
+          :tag="'h1'"
+          class="base-title"
+        />
+        <Text v-if="playlist && playlist.entry" :type="'body-s'">
+          {{ playlist.entry.length }} track(s) • {{ secondsToHHMMSS(playlist.duration) }}
+        </Text>
+      </Stack>
       <ul v-if="playlist" class="p-playlist__list base-list u-list-reset">
         <li
           v-for="song in playlist.entry"
@@ -33,7 +35,7 @@
           </button>
         </li>
       </ul>
-    </aside>
+    </Stack>
   </main>
 </template>
 
@@ -42,11 +44,12 @@ import { ref } from 'vue';
 import { usePlaylistStore } from '@/stores/playlist';
 import { useAlbumStore } from '@/stores/album';
 import { useDrawerStore } from '@/stores/drawer';
+import { storeToRefs } from 'pinia';
+import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
 import Text from '@/components/01-atoms/Text/Text.vue';
+import Stack from '@/components/01-atoms/Stack/Stack.vue';
 import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import Song from '@/components/02-molecules/Song/Song.vue';
-import { storeToRefs } from 'pinia';
-import { api } from '@/main';
 
 const props = defineProps<{
   id: string;

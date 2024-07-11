@@ -28,6 +28,10 @@
   padding-inline-start: 0;
 }
 
+.u-list-style\:none {
+  list-style: none;
+}
+
 .u-text-truncate {
   @include truncate-text;
 }

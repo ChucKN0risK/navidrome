@@ -4,6 +4,7 @@
   height: 100vh;
   z-index: var(--z-index-drawer);
   isolation: isolate;
+  overflow: hidden;
 
   &.is-open {
     .o-drawer {
@@ -43,7 +44,7 @@
   width: 100vw;
   height: 100vh;
   transition: opacity .2s ease-out;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #0009;
   // z-index: var(--z-index-player);
   z-index: 1;
   opacity: 0;

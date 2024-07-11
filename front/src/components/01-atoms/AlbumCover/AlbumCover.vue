@@ -32,5 +32,5 @@ const imageSize = computed(() => {
 </script>
 
 <style lang="scss">
-@import './AlbumCover.scss';
+  @import './AlbumCover.scss';
 </style>
