@@ -14,6 +14,7 @@
       :glyph="icon.glyph"
       :width="icon.width"
       :height="icon.height"
+      :color="icon.color"
       class="a-avatar__icon"
     />
     <div v-if="image" :style="`background-image: url(${image});`" class="a-avatar__img" />
@@ -34,6 +35,7 @@ const props = withDefaults(
       glyph: string;
       width: number;
       height: number;
+      color?: string;
     } | null;
   }>(),
   {

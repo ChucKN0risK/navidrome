@@ -29,7 +29,7 @@ const props = withDefaults(
   {
     width: undefined,
     height: undefined,
-    color: undefined,
+    color: 'icon-default',
     filter: undefined,
     fullWidth: false,
   },
