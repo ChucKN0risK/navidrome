@@ -21,7 +21,6 @@ export const usePlaylistStore = defineStore('playlistStore', {
       try {
         const data = await api.getPlaylist({ id: playlistId });
         this.playlist = data.playlist;
-        console.log('PL', this.playlist)
       } catch (error) {
         alert(error)
         console.log(error)
