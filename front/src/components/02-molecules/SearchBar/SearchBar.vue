@@ -7,7 +7,7 @@
       id="search"
       placeholder="Search"
       autofocus="true"
-      @input="handleChange"
+      @change="handleChange"
     />
   </div>
 </template>
@@ -15,16 +15,17 @@
 <script setup lang="ts">
 import { useSearchStore } from '@/stores/search';
 import Vector from '@/components/01-atoms/Vector/Vector.vue';
-const { setSearchQuery, search } = useSearchStore();
+const { setSearchQuery, search, saveSearchQuery } = useSearchStore();
 
 const handleChange = async (e: Event) => {
   const { value } = e.target as HTMLSelectElement;
-  if (value.trim().length !== 0) {
-    setSearchQuery(value.trim());
-    search(value.trim());
+  const finalValue = value.trim();
+  if (finalValue.length !== 0) {
+    setSearchQuery(finalValue);
+    search(finalValue);
+    saveSearchQuery(finalValue);
   }
-  if (value.trim().length === 0) {
-    console.log('nada')
+  if (finalValue.length === 0) {
     setSearchQuery('');
   }
 };

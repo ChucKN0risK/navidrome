@@ -5,12 +5,14 @@ import { api } from '@/main';
 export type RootState = {
   searchQuery: string;
   searchResults: SearchResult2;
+  searchHistory: string[];
 };
 
 export const useSearchStore = defineStore('searchStore', {
   state: () => ({
     searchQuery: '',
     searchResults: [],
+    searchHistory: [],
   } as RootState),
   getters: {
     getSearchQuery(state) {
@@ -18,6 +20,9 @@ export const useSearchStore = defineStore('searchStore', {
     },
     getSearchResults(state) {
       return state.searchResults;
+    },
+    getSearchHistory(state) {
+      return state.searchHistory;
     },
   },
   actions: {
@@ -37,6 +42,14 @@ export const useSearchStore = defineStore('searchStore', {
         alert(error)
         console.log(error)
       }
+    },
+    saveSearchQuery(query: string) {
+      const numberOfSavedQuery = 10;
+      this.searchHistory.unshift(query);
+      if (this.searchHistory.length >= numberOfSavedQuery) {
+        this.searchHistory.pop();
+      }
+      return this.searchHistory = [...new Set(this.searchHistory)];
     }
   },
 })

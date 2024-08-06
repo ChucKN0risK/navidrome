@@ -28,6 +28,26 @@ Aussi mis dans le `main.ts`.
   - [] <Player> éxiste uniquement pour small viewports si y'a un track qui joue (ou alors on fait un empty state)
   - [] <Drawer> éxiste uniquement pour small viewports
   - [] <SearchBar> éxiste uniquement pour large viewports dans la sidebar
+- [x] Sauvegarder la dernière chanson jouée pour avoir un <Player> qui n'est jamais en "empty state"
+  - [x] Stocker dans le localstorage la dernière chanson jouée
+  - [x] Charger la chanson du localstorage plutot que du store dans le composant <Player>
+- [] La queue semble devoir être gérée côté front ce qui semble logique. Navidrome le fait ici: https://github.com/navidrome/navidrome/blob/7b2ddfd65a2b67a6db681e8709f9fc6ee7e38230/ui/src/actions/player.js#L62. Aucune des deux méthodes de Subsonic liées à la queue sont utilisées dans l'app React.
+  - Case 1: track au milieu d'une liste (album ou playlist)
+    1. on vide la queue
+    2. on joue le track et les suivants
+  - Case 2: click sur random 
+    1. On check si random déjà activé
+    2. Si c'est pas le cas on prend tous les tracks de la liste, on les shuffle et on les ajoute à la queue
+  - Case 3:
+    1. "Play Next": on ajoute le morceau sélectionné en premier à la queue
+    2. "Play Later": on ajoute le morceau sélectionné en dernier à la queue
+  - Case 4: Lecture d'une playlist (double click ou click sur button play dans le header de la playlist)
+    1. on vide la queue
+    2. on joue le premier track de la liste et les suivants
+
+- [] Rajouter le temps écoulé et la durée totale d'un track (uniquement sur larges viewports)
+  - [x] Choper les valeurs
+  - [] Styliser le tout en s'inspirant du player de Music
 
 ## To keep in mind
 - A PWA is based on Service Workers + the Cache API
@@ -46,3 +66,19 @@ Aussi mis dans le `main.ts`.
 4. Write script to
   - convert duration from HH:MM:SS to SSSSS
   - add path to music track with `find` command (ex: `find /music/Music -iname "Russian tv.mp3"`)
+
+
+What happens if user clicks on the play/pause button:
+1. Si track en train de jouer : toggle current song play state (play || pause)
+2. Si pas de track en train de jouer:
+  1. on charge le current song
+  2. On le joue
+  3. on le save via `saveLastPlayedSong`
+
+What happens if user clicks on track in a list
+1. On charge ce track
+2. On dit au player de jouer le track chargé
+3. On save le track dans le localStorage en tant que dernier track joué
+
+Player doit toujours avoir un track de chargé:
+  - Pour ça on stock dans le localStorage le dernier track joué et on charge ce morceau au lancement du player

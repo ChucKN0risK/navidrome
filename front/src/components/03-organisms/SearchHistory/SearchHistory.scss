@@ -1,0 +1,11 @@
+.o-search-history {
+  button {
+    padding-top: var(--base-space-1);
+    padding-bottom: var(--base-space-1);
+    @include size(100%);
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    color: var(--text-high-emphasis);
+  }
+}
