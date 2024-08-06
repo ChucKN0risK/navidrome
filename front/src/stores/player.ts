@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
-import { type NowPlayingEntry } from 'subsonic-api';
+import { type NowPlayingEntry, type PlayQueue } from 'subsonic-api';
 import { api } from '@/main';
 
 export type RootState = {
   nowPlaying?: string | null;
   currentSong?: NowPlayingEntry | null;
   songId?: string | null;
+  playQueue?: NowPlayingEntry | null;
 };
 
 export const usePlayerStore = defineStore('playerStore', {
@@ -13,6 +14,7 @@ export const usePlayerStore = defineStore('playerStore', {
     nowPlaying: null,
     currentSong: null,
     songId: null,
+    playQueue: null,
   } as RootState),
   getters: {
     getNowPlayingUrl(state) {
@@ -21,6 +23,9 @@ export const usePlayerStore = defineStore('playerStore', {
     getCurrentSong(state) {
       return state.currentSong;
     },
+    getPlayQueue(state) {
+      return state.playQueue;
+    }
   },
   actions: {
     setSongId(songId: string) {
@@ -54,5 +59,16 @@ export const usePlayerStore = defineStore('playerStore', {
         console.log(error)
       }
     },
+    async setPlayQueue(songId: string) {
+      try {
+        await api.savePlayQueue({ id: songId, position: 2 });
+        const playQueue = await api.getPlayQueue();
+        console.log(playQueue)
+        // this.playQueue = playQueue;
+      } catch (error) {
+        alert(error)
+        console.log(error)
+      }
+    }
   },
 })
