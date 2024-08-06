@@ -14,6 +14,7 @@
             glyph: 'avatar',
             width: 20,
             height: 20,
+            color: 'icon-on-colored-bg'
           }"
           :size="'small'"
         />
