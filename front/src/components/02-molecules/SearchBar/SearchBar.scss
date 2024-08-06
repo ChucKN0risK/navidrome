@@ -1,7 +1,7 @@
 :root {
   --input-height: var(--base-space-10);
   --input-side-padding: var(--base-space-2);
-  --input-background-color: #00000040;
+  --input-background-color: var(--background-component-input);
   --input-border-radius: var(--border-radius-medium);
   --input-box-shadow: var(--shadow-1);
   --input-text-color: var(--text-high-emphasis);
@@ -28,7 +28,7 @@
   }
 
   &:focus-within {
-    outline: 2px solid blue;
+    outline: 2px solid tomato;
   }
 
   input {
