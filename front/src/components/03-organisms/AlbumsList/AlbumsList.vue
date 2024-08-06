@@ -11,7 +11,6 @@
         <AlbumCover
           :cover-url="albumCover[album.id]"
           :size="'small'"
-          class="o-player__play__cover"
         />
         <Text :text="album.name" :type="'body-m'" class="u-text-truncate" />
       </RouterLink>
