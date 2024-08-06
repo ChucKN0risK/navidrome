@@ -1,42 +1,70 @@
 :root {
-  --play-button-size: var(--base-space-14);
+  --player-cover-size: var(--base-space-14);
   --progress-bar-height: 2px;
   --progress-bar-value: 0%;
   --progress-bar-color: tomato;
-  --player-height: calc(var(--play-button-size) + var(--progress-bar-height));
+  --progress-bar-thumb-size: calc(var(--progress-bar-height) + (2*2px));
+  --player-height: calc(var(--player-cover-size) + var(--progress-bar-height));
   --player-padding: var(--base-space-2);
+  --player-grid-areas:
+    "play-state info"
+    "playback playback";
+  --player-grid-columns: var(--player-cover-size) 1fr;
+  --player-cover-play-button-display: block;
+  --player-controls-display: none;
+  --player-time-display: none;
+  --player-side-padding: initial;
+  --player-progress-bar-usable-state: none;
+  --player-progress-bar-thumb-size: 0;
 }
 
 .o-player {
   grid-area: player;
   display: grid;
   align-self: flex-end;
-  grid-template-areas:
-    "play-state info"
-    "playback playback";
-  grid-template-columns: var(--play-button-size) 1fr;
+  grid-template-areas: var(--player-grid-areas);
+  grid-template-columns: var(--player-grid-columns);
+  border-top: var(--border);
+  padding-left: var(--player-side-padding);
+  padding-right: var(--player-side-padding);
 
   audio {
     display: none;
   }
 
-  @media only screen and (max-width: 800px) {
-    border-top: var(--border);
+  @media only screen and (min-width: 801px) {
+    --player-grid-areas:
+      "controls play-state info"
+      "controls play-state playback";
+    --player-grid-columns: min-content var(--player-cover-size) 1fr;
+    --player-cover-play-button-display: none;
+    --player-controls-display: flex;
+    --player-side-padding: var(--player-padding);
+    --player-progress-bar-usable-state: initial;
+    --player-progress-bar-thumb-size: 5px;
+    --player-time-display: flex;
   }
 }
 
-.o-player__play {
+.o-player__controls {
+  display: var(--player-controls-display);
+  gap: var(--base-space-3);
+  grid-area: controls;
+}
+
+.o-player__cover-wrapper {
   grid-area: play-state;
   position: relative;
   padding: var(--player-padding);
   @include flex-absolute-center;
-  @include size(var(--play-button-size));
+  @include size(var(--player-cover-size));
   
-  .o-player__play__cover {
+  .o-player__cover-wrapper__cover {
     @include size(100%);
   }
 
   button {
+    display: var(--player-cover-play-button-display);
     position: absolute;
     @include absolute-center;
     color: var(--white);
@@ -44,10 +72,25 @@
 }
 
 .o-player__info {
+  position: relative;
   grid-area: info;
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  @media only screen and (min-width: 801px) {
+    align-items: center;
+  }
+}
+
+.o-player__time {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-200%);
+  display: var(--player-time-display);
+  justify-content: space-between;
+  width: 100%;
 }
 
 .o-player__progress {
@@ -61,15 +104,16 @@
     bottom: 0;
     @include size(100%);
     -webkit-appearance: none;
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--global-neutral-3);
     background-image: linear-gradient(var(--progress-bar-color), var(--progress-bar-color));
     background-size: var(--progress-bar-value) 100%;
     background-repeat: no-repeat;
+    pointer-events: var(--player-progress-bar-usable-state);
 
     @include input-range-track() {
       -webkit-appearance: none;
-      height: 20px;
-      width: 20px;
+      // height: 5px;
+      // width: 5px;
       border-radius: 50%;
       background: var(--progress-bar-color);
       cursor: ew-resize;
@@ -78,7 +122,10 @@
     }
     
     @include input-range-thumb() {
+      display: var(--player-progress-bar-thumb-display);
       -webkit-appearance: none;
+      height: var(--player-progress-bar-thumb-size);
+      width: var(--player-progress-bar-thumb-size);
       box-shadow: none;
       border: 1px solid var(--progress-bar-color);
       background: var(--color-background);
