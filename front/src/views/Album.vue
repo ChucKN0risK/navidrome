@@ -3,7 +3,11 @@
     <AlbumDetails v-if="album" :album="album" />
     <ul v-if="album" class="o-song-list base-list u-list-reset">
       <li v-for="song in album.song" :key="song.id">
-        <Song :song="song" :show-artist="false" />
+        <Song
+          :song="song"
+          :show-artist="false"
+          @set-playing-song="setCurrentTrack"
+        />
         <button
           class="o-song__options"
           @click.once="showDrawer"
@@ -22,12 +26,13 @@
 
 <script setup lang="ts">
 import { useAlbumStore } from '@/stores/album';
+import { usePlayerStore } from '@/stores/player';
+import { storeToRefs } from 'pinia';
+import { api } from '@/main';
 import Stack from '@/components/01-atoms/Stack/Stack.vue';
 import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import AlbumDetails from '@/components/02-molecules/AlbumDetails/AlbumDetails.vue';
 import Song from '@/components/02-molecules/Song/Song.vue';
-import { storeToRefs } from 'pinia';
-import { api } from '@/main';
 
 const props = defineProps<{
   albumId: string;
@@ -41,6 +46,11 @@ const album = getAlbum;
 const showDrawer = () => {
   console.log('show drawer');
 }
+
+const { setSongId } = usePlayerStore();
+const setCurrentTrack = (songId: string) => {
+  setSongId(songId);
+};
 
 const download = async (songId: string) => {
   try {
