@@ -1,58 +1,88 @@
 :root {
   --player-cover-size: var(--base-space-14);
-  --progress-bar-height: 2px;
-  --progress-bar-value: 0%;
-  --progress-bar-color: tomato;
-  --progress-bar-thumb-size: calc(var(--progress-bar-height) + (2*2px));
-  --player-height: calc(var(--player-cover-size) + var(--progress-bar-height));
+  --player-height: calc(var(--player-cover-size) + var(--player-progress-bar-height));
   --player-padding: var(--base-space-2);
-  --player-grid-areas:
+  --player-preview-grid-areas:
     "play-state info"
-    "playback playback";
-  --player-grid-columns: var(--player-cover-size) 1fr;
+    "progress progress";
+  --player-preview-grid-columns: var(--player-cover-size) 1fr;
   --player-cover-play-button-display: block;
   --player-controls-display: none;
   --player-time-display: none;
   --player-side-padding: initial;
-  --player-progress-bar-usable-state: none;
-  --player-progress-bar-thumb-size: 0;
+  --player-full-toggle-btn-display: flex;
 }
 
 .o-player {
+  position: relative;
   grid-area: player;
-  display: grid;
   align-self: flex-end;
-  grid-template-areas: var(--player-grid-areas);
-  grid-template-columns: var(--player-grid-columns);
   border-top: var(--border);
-  padding-left: var(--player-side-padding);
-  padding-right: var(--player-side-padding);
+  height: 100vh;
+  background-color: var(--color-background);
+  transform: translateY(calc(100vh - var(--player-height)));
+  transition: transform .2s ease-in;
+  z-index: var(--z-index-player);
 
   audio {
     display: none;
   }
 
   @media only screen and (min-width: 801px) {
-    --player-grid-areas:
+    --player-preview-grid-areas:
       "controls play-state info"
       "controls play-state playback";
-    --player-grid-columns: min-content var(--player-cover-size) 1fr;
+    --player-preview-grid-columns: min-content var(--player-cover-size) 1fr;
     --player-cover-play-button-display: none;
     --player-controls-display: flex;
     --player-side-padding: var(--player-padding);
     --player-progress-bar-usable-state: initial;
     --player-progress-bar-thumb-size: 5px;
     --player-time-display: flex;
+    --player-full-toggle-btn-display: none;
+  }
+
+  .o-player__full {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .o-player__preview {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.show-small-viewport-player {
+    --player-controls-display: flex;
+
+    transform: translateY(var(--player-height));
+
+    .o-player__preview {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .o-player__full {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 }
 
-.o-player__controls {
-  display: var(--player-controls-display);
-  gap: var(--base-space-3);
-  grid-area: controls;
+.o-player__preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: grid;
+  grid-template-areas: var(--player-preview-grid-areas);
+  grid-template-columns: var(--player-preview-grid-columns);
+  padding-left: var(--player-side-padding);
+  padding-right: var(--player-side-padding);
+  transition: opacity .3s ease-in;
 }
 
-.o-player__cover-wrapper {
+.o-player__preview__cover-wrapper {
   grid-area: play-state;
   position: relative;
   padding: var(--player-padding);
@@ -71,64 +101,69 @@
   }
 }
 
-.o-player__info {
+.o-player__preview__info {
   position: relative;
   grid-area: info;
-  display: flex;
+}
+
+.o-player__preview__progress {
+  grid-area: progress;
+}
+
+.o-player__full {
+  --player-full-height-grid-areas:
+    "toggle-btn"
+    "cover"
+    "info"
+    "controls"
+    "progress";
+  
+  display: grid;
+  gap: var(--base-space-4);
+  grid-template-areas: var(--player-full-height-grid-areas);
+  padding-left: var(--base-space-4);
+  padding-right: var(--base-space-4);
+  transition: opacity .3s ease-in;
+}
+
+.o-player__full__toggle-btn {
+  grid-area: toggle-btn;
+  display: var(--player-full-toggle-btn-display);
   justify-content: center;
-  flex-direction: column;
-
-  @media only screen and (min-width: 801px) {
-    align-items: center;
-  }
-}
-
-.o-player__time {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translateY(-200%);
-  display: var(--player-time-display);
-  justify-content: space-between;
+  align-items: center;
+  height: var(--base-space-8);
   width: 100%;
+  background-color: transparent;
+  padding: 0;
+  border: none;
 }
 
-.o-player__progress {
-  grid-area: playback;
-  position: relative;
-  height: var(--progress-bar-height);
+.o-player__full__cover {
+  grid-area: cover;
+}
 
-  input[type="range"] {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    @include size(100%);
-    -webkit-appearance: none;
-    background: var(--global-neutral-3);
-    background-image: linear-gradient(var(--progress-bar-color), var(--progress-bar-color));
-    background-size: var(--progress-bar-value) 100%;
-    background-repeat: no-repeat;
-    pointer-events: var(--player-progress-bar-usable-state);
+.o-player__full-height__info {
+  align-items: center;
+}
 
-    @include input-range-track() {
-      -webkit-appearance: none;
-      // height: 5px;
-      // width: 5px;
-      border-radius: 50%;
-      background: var(--progress-bar-color);
-      cursor: ew-resize;
-      box-shadow: 0 0 2px 0 #555;
-      transition: background .3s ease-in-out;
-    }
-    
-    @include input-range-thumb() {
-      display: var(--player-progress-bar-thumb-display);
-      -webkit-appearance: none;
-      height: var(--player-progress-bar-thumb-size);
-      width: var(--player-progress-bar-thumb-size);
-      box-shadow: none;
-      border: 1px solid var(--progress-bar-color);
-      background: var(--color-background);
-    }
-  }
+.o-player__full__controls {
+  grid-area: controls;
+  display: var(--player-controls-display);
+  gap: var(--base-space-3);
+  align-items: center;
+  justify-content: center;
+}
+
+// .o-player__full_time {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   transform: translateY(-200%);
+//   display: var(--player-time-display);
+//   justify-content: space-between;
+//   width: 100%;
+// }
+
+.o-player__full__progress {
+  grid-area: progress;
 }

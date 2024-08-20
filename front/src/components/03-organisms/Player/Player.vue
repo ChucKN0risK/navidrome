@@ -1,5 +1,10 @@
 <template>
-  <div class="o-player" ref="el">
+  <div
+    :class="[
+      'o-player',
+      { 'show-small-viewport-player': showSmallViewportPlayer }
+    ]"
+  >
     <audio
       ref="player"
       controls
@@ -8,46 +13,61 @@
       @canplaythrough="setPlayerLoadingState"
       @timeupdate="updateProgress"
     />
-    <div class="o-player__controls">
-      <button @click.prevent="playPrevious">
-        <Vector :glyph="'double-arrow-left'" :width="30" :height="30" />
-      </button>
-      <button @click.prevent="play">
-        <Vector :glyph="isPlaying ? 'pause' : 'play'" :width="30" :height="30" />
-      </button>
-      <button @click.prevent="playNext">
-        <Vector :glyph="'double-arrow-right'" :width="30" :height="30" />
-      </button>
-    </div>
-    <div class="o-player__cover-wrapper">
-      <AlbumCover
-        :cover-url="getSongAlbumCover"
-        :size="'small'"
-      />
-      <button @click.prevent="play" id="playerPlayBtn">
-        <Vector :glyph="isPlaying ? 'pause' : 'play'" :width="30" :height="30" />
-      </button>
-    </div>
-    <div v-if="savedSong" class="o-player__info">
-      <Text :type="'body-m'" :text="getSongTitle" />
-      <Text :type="'body-xs'" :text="getSongArtist" :color="'gray-9'" />
-    </div>
-    <div class="o-player__progress">
-      <div class="o-player__time">
-        <Text :type="'body-xs'" :text="getPlayedDuration" />
-        <Text :type="'body-xs'" :text="getSongDuration" />
+    <div v-if="savedSong" class="o-player__preview" ref="el">
+      <div class="o-player__preview__cover-wrapper">
+        <AlbumCover
+          :cover-url="getSongAlbumCover"
+          :size="'small'"
+        />
+        <button @click.stop="play" id="playerPlayBtn">
+          <Vector :glyph="isPlaying ? 'pause' : 'play'" :width="30" :height="30" />
+        </button>
       </div>
-      <label for="seekbar" class="u-visually-hidden">Seekbar</label>
-      <input
-        id="seekbar"
-        ref="seekBar"
-        value="0"
-        min="0"
-        max="100"
-        type="range"
-        step="1"
-        @change="updateSeekValue"
-        @input="updateSeekStyle"
+      <PlayerTrackInfo
+        class="o-player__preview__info"
+        :title="getSongTitle"
+        :artist="getSongArtist"
+      />
+      <PlayerProgress
+        class="o-player__preview__progress"
+        :track-duration="song?.duration"
+        :track-progress="playerEllapsedTime"
+        :interactive="false"
+        @update="updateTrackPlayingPosition"
+      />
+    </div>
+    <div class="o-player__full">
+      <button
+        class="o-player__full__toggle-btn"
+        @click.stop="toggleSmallViewportPlayer"
+      >
+        <Vector :glyph="'caret-down'" :width="30" :height="30" />
+      </button>
+      <div class="player__full__tabs">
+        <button @click.stop="showPlayer">Now Playing</button>
+        <button @click.stop="showQueue">Queue</button>
+      </div>
+      <AlbumCover
+        class="o-player__full__cover"
+        :cover-url="getSongAlbumCover"
+        :size="'full'"
+      />
+      <PlayerTrackInfo
+        class="o-player__full-height__info"
+        :title="getSongTitle"
+        :artist="getSongArtist"
+      />
+      <PlayerControls
+        class="o-player__full__controls"
+        :is-playing="isPlaying"
+        @toggle-play-state="play"
+        @play-previous="playPrevious"
+        @play-next="playNext"
+      />
+      <PlayerProgress
+        :track-duration="song?.duration"
+        :track-progress="playerEllapsedTime"
+        @update="updateTrackPlayingPosition"
       />
     </div>
   </div>
@@ -57,10 +77,11 @@
 import { ref, type Ref, watch, computed, onMounted, onUnmounted } from 'vue';
 import { usePlayerStore } from '@/stores/player';
 import { useAlbumStore } from '@/stores/album';
-import Text from '@/components/01-atoms/Text/Text.vue';
 import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import AlbumCover from '@/components/01-atoms/AlbumCover/AlbumCover.vue';
-import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
+import PlayerTrackInfo from '@/components/02-molecules/PlayerTrackInfo/PlayerTrackInfo.vue';
+import PlayerProgress from '@/components/02-molecules/PlayerProgress/PlayerProgress.vue';
+import PlayerControls from '@/components/02-molecules/PlayerControls/PlayerControls.vue';
 import { storeToRefs } from 'pinia';
 import { saveLastPlayedSong, getLastPlayedSong } from '@/utils/localstorage.utils';
 
@@ -70,13 +91,14 @@ const el = ref({} as HTMLDivElement);
 const url = getNowPlayingUrl;
 const song = getCurrentSong;
 const savedSong = getLastPlayedSong();
-const savedSongId = computed(() => savedSong ? JSON.parse(savedSong).id : '');
-const savedSongTitle = computed(() => savedSong ? JSON.parse(savedSong).title : '');
-const savedSongArtist = computed(() => savedSong ? JSON.parse(savedSong).artist : '');
-const savedAlbumCover = computed(() => savedSong ? JSON.parse(savedSong).albumCover : '');
+const savedSongId = computed(() => savedSong ? JSON.parse(savedSong).id : songId);
+const savedSongTitle = computed(() => savedSong ? JSON.parse(savedSong).title : song.value?.title);
+const savedSongArtist = computed(() => savedSong ? JSON.parse(savedSong).artist : song.value?.artist);
+const savedAlbumCover = computed(() => savedSong ? JSON.parse(savedSong).albumCover : albumCover.value);
 const player: Ref<HTMLAudioElement | null> = ref(null);
-const seekBar: Ref<HTMLInputElement | null> = ref(null);
+// const seekBar: Ref<HTMLInputElement | null> = ref(null);
 const isPlaying = ref(false);
+const showSmallViewportPlayer = ref(false);
 const canPlay = ref(false);
 const playerEllapsedTime = ref(0);
 
@@ -131,9 +153,6 @@ const play = () => {
   }
 };
 
-const getPlayedDuration = computed(() => song.value ? `${secondsToHHMMSS(playerEllapsedTime.value)}` : '');
-const getSongDuration = computed(() => song.value && song.value.duration ? `${secondsToHHMMSS(song.value.duration)}` : '');
-
 const { getAlbumCover } = useAlbumStore();
 const albumCover = ref('');
 const fetchAlbumCover = async (albumId: string) => {
@@ -156,34 +175,27 @@ const getSongAlbumCover = computed(() => albumCover.value !== '' ? albumCover.va
 
 const setPlayerLoadingState = () => {
   canPlay.value = true;
-  if (savedSongId.value !== songId.value) {
+  if (savedSongId.value !== songId?.value) {
     play();
   }
 };
 
 const updateProgress = () => {
-  if (!player.value || !seekBar.value) {
+  if (!player.value) {
     return;
   }
-  const trackProgress = `${Math.floor((player.value.currentTime / player.value.duration) * 100)}`;
+  // const trackProgress = `${Math.floor((player.value.currentTime / player.value.duration) * 100)}`;
+  // document.documentElement.style.setProperty('--player-progress-bar-value', `${trackProgress}%`);
   playerEllapsedTime.value = Math.round(player.value.currentTime);
-  seekBar.value.value = trackProgress;
-  document.documentElement.style.setProperty('--progress-bar-value', `${trackProgress}%`);
 };
 
-const updateSeekValue = () => {
-  if (!player.value || !seekBar.value) {
+const updateTrackPlayingPosition = (value: number) => {
+  console.log(value)
+  if (!player.value || !value) {
     return;
   }
-  player.value.currentTime = (Number(seekBar.value.value) * player.value.duration) / 100;
+  player.value.currentTime = (value * player.value.duration) / 100;
   play();
-};
-
-const updateSeekStyle = () => {
-  if (!seekBar.value) {
-    return;
-  }
-  document.documentElement.style.setProperty('--progress-bar-value', `${seekBar.value.value}%`);
 };
 
 const playNext = () => {
@@ -198,9 +210,21 @@ const playPrevious = () => {
   }
 };
 
+const toggleSmallViewportPlayer = () => {
+  return showSmallViewportPlayer.value = !showSmallViewportPlayer.value;
+};
+
+const showPlayer = () => {
+  console.log('show player')
+};
+
+const showQueue = () => {
+  console.log('show queue')
+};
+
 const documentClick = (e: MouseEvent) => {
-  const playerPLayButton = document.getElementById('playerPlayBtn');
-  const playerPlayButtonClicked = e.target === playerPLayButton || playerPLayButton?.contains(e.target);
+  const playerPlayButton = document.getElementById('playerPlayBtn');
+  const playerPlayButtonClicked = e.target === playerPlayButton || playerPlayButton?.contains(e.target);
   const shouldOpen =
     !playerPlayButtonClicked && (
     el.value === e.target ||
@@ -208,7 +232,7 @@ const documentClick = (e: MouseEvent) => {
   );
 
   if (shouldOpen) {
-    console.log('open')
+    toggleSmallViewportPlayer();
   }
 };
 

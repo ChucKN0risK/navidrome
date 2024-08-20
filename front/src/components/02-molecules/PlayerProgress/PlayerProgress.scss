@@ -1,0 +1,62 @@
+:root {
+  --player-progress-bar-height: 2px;
+  --player-progress-bar-value: 0%;
+  --player-progress-bar-color: tomato;
+  --player-progress-bar-thumb-size: 0;
+  --player-progress-bar-usable-state: none;
+  --player-progress-bar-thumb-border-size: 0;
+  --player-progress-bar-thumb-display: none;
+}
+
+.m-player-progress {
+  position: relative;
+
+  &:not(.is-interactive) {
+    height: var(--player-progress-bar-height);
+  }
+  
+  &.is-interactive {
+    --player-progress-bar-thumb-border-size: 2px;
+    --player-progress-bar-thumb-size: var(--base-space-4);
+    --player-progress-bar-usable-state: auto;
+
+    padding-bottom: var(--base-space-4);
+  }
+
+  input[type="range"] {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: var(--player-progress-bar-height);
+    -webkit-appearance: none;
+    background: var(--global-neutral-3);
+    background-image: linear-gradient(var(--player-progress-bar-color), var(--player-progress-bar-color));
+    background-size: var(--player-progress-bar-value) 100%;
+    background-repeat: no-repeat;
+    pointer-events: var(--player-progress-bar-usable-state);
+
+    @include input-range-track() {
+      -webkit-appearance: none;
+      border-radius: 50%;
+      background: var(--player-progress-bar-color);
+      cursor: ew-resize;
+      box-shadow: 0 0 2px 0 #555;
+      transition: background .3s ease-in-out;
+    }
+    
+    @include input-range-thumb() {
+      -webkit-appearance: none;
+      height: var(--player-progress-bar-thumb-size);
+      width: var(--player-progress-bar-thumb-size);
+      box-shadow: none;
+      border: calc(var(--player-progress-bar-thumb-border-size) * 1) solid var(--player-progress-bar-color);
+      background: var(--color-background);
+    }
+  }
+}
+
+.m-player-progress__time {
+  display: flex;
+  justify-content: space-between;
+}
