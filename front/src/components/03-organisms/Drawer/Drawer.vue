@@ -64,9 +64,9 @@
     console.log(`Play next ${songId}`);
   };
 
-  // const playLater = (songId: string) => {
-  //   console.log(`Play Later ${songId}`);
-  // };
+  const playLater = (songId: string) => {
+    console.log(`Play Later ${songId}`);
+  };
 
   const getSongOptions = (songId: string) => {
     return [
@@ -80,11 +80,11 @@
         icon: 'add-to-queue',
         action: () => playNext(songId)
       },
-      // {
-      //   name: 'Play later',
-      //   icon: 'download',
-      //   action: () => playLater(songId)
-      // },
+      {
+        name: 'Play later',
+        icon: 'download',
+        action: () => playLater(songId)
+      },
     ];
   };
 </script>

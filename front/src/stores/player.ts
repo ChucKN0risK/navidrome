@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia';
-import { type NowPlayingEntry, type PlayQueue } from 'subsonic-api';
+import { useAlbumStore } from '@/stores/album';
+import { type NowPlayingEntry, type Child } from 'subsonic-api';
 import { api } from '@/main';
 
 export type RootState = {
   nowPlaying?: string | null;
   currentSong?: NowPlayingEntry | null;
   songId?: string | null;
-  playQueue?: NowPlayingEntry | null;
+  playQueue?: Child[] | null;
 };
 
 export const usePlayerStore = defineStore('playerStore', {
@@ -59,12 +60,17 @@ export const usePlayerStore = defineStore('playerStore', {
         console.log(error)
       }
     },
-    async setPlayQueue(songId: string) {
+    async setPlayQueue() {
       try {
-        await api.savePlayQueue({ id: songId, position: 2 });
-        const playQueue = await api.getPlayQueue();
-        console.log(playQueue)
-        // this.playQueue = playQueue;
+        // 1. Récupérer toutes les chansons suivantes
+        // dans la liste dans laquelle la chanson
+        // jouée est actuellement
+        const trackParentId = this.currentSong?.parent;
+        await useAlbumStore().fetchAlbum(trackParentId!);
+        const parentSongs = useAlbumStore().getAlbum?.song;
+        const currentSongIndex = parentSongs?.findIndex((el: Child) => el.id === this.currentSong?.id);
+        const nextSongs = parentSongs?.filter((_, index) => index >= currentSongIndex!);
+        this.playQueue = nextSongs;
       } catch (error) {
         alert(error)
         console.log(error)

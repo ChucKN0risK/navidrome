@@ -113,8 +113,8 @@
 .o-player__full {
   --player-full-height-grid-areas:
     "toggle-btn"
-    "cover"
-    "info"
+    "tabs"
+    "scroller"
     "controls"
     "progress";
   
@@ -138,9 +138,47 @@
   border: none;
 }
 
-.o-player__full__cover {
-  grid-area: cover;
+.o-player__full__tabs {
+  grid-area: tabs;
+  display: flex;
+  border-bottom: var(--border);
+  
+  button {
+    --tab-border-color: transparent;
+
+    @include flex-absolute-center;
+    height: var(--base-space-8);
+    padding-left: var(--base-space-2);
+    padding-right: var(--base-space-2);
+    width: 50%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--tab-border-color);
+
+    &.is-active {
+      --tab-border-color: var(--player-progress-bar-color);
+    }
+  }
 }
+
+.o-player__full__scroller {
+  grid-area: scroller;
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  & > * {
+    min-width: 100%;
+    scroll-snap-align: start;
+  }
+}
+
+// .o-player__full__cover {
+//   grid-area: cover;
+// }
 
 .o-player__full-height__info {
   align-items: center;
