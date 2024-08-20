@@ -70,7 +70,7 @@ Aussi mis dans le `main.ts`.
 
 What happens if user clicks on the play/pause button:
 1. Si track en train de jouer : toggle current song play state (play || pause)
-2. Si pas de track en train de jouer:
+2. Si pas de track en train de jouer :
   1. on charge le current song
   2. On le joue
   3. on le save via `saveLastPlayedSong`
