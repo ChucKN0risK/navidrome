@@ -1,38 +1,22 @@
 <template>
-  <Stack :space-unit="4" :tag="'main'" class="p-album">
+  <Stack :space-unit="4" :tag="'main'" class="base-layout">
     <AlbumDetails v-if="album" :album="album" />
-    <ul v-if="album" class="o-song-list base-list u-list-reset">
-      <li v-for="song in album.song" :key="song.id">
-        <Song
-          :song="song"
-          :show-artist="false"
-          @set-playing-song="setCurrentTrack"
-        />
-        <button
-          class="o-song__options"
-          @click.once="showDrawer"
-        >
-          <Vector
-            :glyph="'dots-vertical'"
-            :color="'gray-10'"
-            :width="20"
-            :height="20"
-          />
-        </button>
-      </li>
-    </ul>
+    <SongList
+      v-if="album"
+      :songs="songs"
+      :show-artist="false"
+      :cover-url="album.largeImageUrl"
+    />
   </Stack>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useAlbumStore } from '@/stores/album';
-import { usePlayerStore } from '@/stores/player';
 import { storeToRefs } from 'pinia';
-import { api } from '@/main';
 import Stack from '@/components/01-atoms/Stack/Stack.vue';
-import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import AlbumDetails from '@/components/02-molecules/AlbumDetails/AlbumDetails.vue';
-import Song from '@/components/02-molecules/Song/Song.vue';
+import SongsList from '@/components/03-organisms/SongsList/SongsList.vue';
 
 const props = defineProps<{
   albumId: string;
@@ -42,53 +26,7 @@ const { fetchAlbum } = useAlbumStore();
 fetchAlbum(props.albumId);
 const { getAlbum } = storeToRefs(useAlbumStore());
 const album = getAlbum;
-
-const showDrawer = () => {
-  console.log('show drawer');
-}
-
-const { setSongId } = usePlayerStore();
-const setCurrentTrack = (songId: string) => {
-  setSongId(songId);
-};
-
-const download = async (songId: string) => {
-  try {
-    console.log('dl')
-    await api.download({ id: songId, format: 'raw'})
-  } catch (error) {
-    alert(error)
-    console.log(error)
-  }
-};
-
-const playNext = (songId: string) => {
-  console.log(`Play next ${songId}`);
-};
-
-const playLater = (songId: string) => {
-  console.log(`Play Later ${songId}`);
-};
-
-const getSongOptions = (songId: string) => {
-  return [
-    {
-      name: 'Download',
-      icon: 'download',
-      action: () => download(songId)
-    },
-    {
-      name: 'Play next',
-      icon: 'add-to-queue',
-      action: () => playNext(songId)
-    },
-    // {
-    //   name: 'Play later',
-    //   icon: 'download',
-    //   action: () => playLater(songId)
-    // },
-  ];
-};
+const songs = computed(() => album.value?.song ?? []);
 </script>
 
 <style>
