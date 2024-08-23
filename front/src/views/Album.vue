@@ -16,7 +16,7 @@ import { useAlbumStore } from '@/stores/album';
 import { storeToRefs } from 'pinia';
 import Stack from '@/components/01-atoms/Stack/Stack.vue';
 import AlbumDetails from '@/components/02-molecules/AlbumDetails/AlbumDetails.vue';
-import SongsList from '@/components/03-organisms/SongsList/SongsList.vue';
+import SongList from '@/components/03-organisms/SongList/SongList.vue';
 
 const props = defineProps<{
   albumId: string;

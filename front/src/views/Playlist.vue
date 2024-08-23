@@ -33,7 +33,7 @@ import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
 import { getCoverArtUrl } from '@/utils/subsonic.utils';
 import Text from '@/components/01-atoms/Text/Text.vue';
 import Stack from '@/components/01-atoms/Stack/Stack.vue';
-import SongsList from '@/components/03-organisms/SongsList/SongsList.vue';
+import SongList from '@/components/03-organisms/SongList/SongList.vue';
 
 const props = defineProps<{
   id: string;
