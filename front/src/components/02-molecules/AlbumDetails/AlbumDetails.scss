@@ -5,10 +5,6 @@
 .m-album-details {
   display: flex;
   
-  @media only screen and (max-width: 800px) {
-    padding: var(--player-padding);
-  }
-  
   @container album-details (max-width: 400px) {
     flex-direction: column;
   }
