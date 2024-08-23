@@ -12,13 +12,12 @@ Aussi mis dans le `main.ts`.
 - Tester l'app en static avec Astro en utilisant fetch(): https://docs.astro.build/en/guides/data-fetching/#fetch-in-astro
 
 ## To Do
-- [] Mettre en cache le résultats des requetes des pages principales
+- [] Mettre en cache le résultats des requêtes des pages principales
 - [] Le DL d'un track marche depuis le serveur navidrome local (http://0.0.0.0:4533/app/) mais pas depuis notre front. Le warning lié à l'erreur 3Dcanvas de Firefox s'affiche chez les deux. Les requêtes ont l'air d'être les mêmes. Sauf p-e le param optionel bitrate qui est maxBitrate de notre côté. Les deux requètes retournent un 200.
 - [] Afficher un indicateur de lecture sur la track dans une liste via l'attribut `[aria-current='true']`. A `true` on affiche un icon de lecture. Sans l'attribut on affiche le numéro de track. Comme expliqué ici : https://begin.com/blog/posts/2023-09-28-introducing-enhance-music#enhancing-the-tracklisting
 - [] Garder en tête toute la logique du player expliqué ici : https://begin.com/blog/posts/2023-09-28-introducing-enhance-music#enhancing-the-audio-player
 - [] Utiliser la [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API) si on veut afficher le controle de la lecture sur les notifications mobile.
 - [] Tester l'app en tant que PWA : https://blog.openreplay.com/vue3--building-a-progressive-web-app/
-- Ajouter le temps écoulé de la chanson / temps total du track
 - Faire en sorte que le menu d'un élément d'une liste soit un block qui prenne toute la largeur de l'écran et qui vienne du bas (comme sur Bandcamp ou Soundcloud) sur small viewports. Sur large viewport on implémente un click droit normal avec les même éléments.
 - [x] Implémenter une <SearchBar> qui sera dans le menu en bas pour les petits viewports et dans le <main> pour les viewports plus larges
 - [] Remplacer le DOM du <Drawer> par l'élément <Dialog> natif: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#usage_notes
@@ -46,10 +45,15 @@ Aussi mis dans le `main.ts`.
     - Case 4: Lecture d'une playlist (double click ou click sur button play dans le header de la playlist)
       1. on vide la queue
       2. on joue le premier track de la liste et les suivants
-
 - [] Rajouter le temps écoulé et la durée totale d'un track (uniquement sur larges viewports)
   - [x] Choper les valeurs
   - [] Styliser le tout en s'inspirant du player de Music
+- Mettre le champ de recherche en focus lors de l'arrivée sur la page "Search" (https://michaelnthiessen.com/set-focus-on-input-vue)
+- Pourquoi pas utiliser ce plugin Pinia pour sauvegarder dans le localStorage certaines infos des stores : https://github.com/prazdevs/pinia-plugin-persistedstate
+- [] Toutes les images retournées par la méthode `getCoverArt` ne sont pas mises en cache à cause d'un bug dans l'api. Issue à suivre ici: https://github.com/explodingcamera/subsonic-api/issues/7
+- Implémenter le theme switcher selon cet article : https://www.aleksandrhovhannisyan.com/blog/the-perfect-theme-switch/
+- Use [Vue Virtual Scroller](https://github.com/Akryum/vue-virtual-scroller/blob/master/packages/vue-virtual-scroller/README.md) to display large song lists
+- [] Fix le <Drawer> qui ne s'ouvre que si on clique sur un nouveau <Song>.
 
 ## To keep in mind
 - A PWA is based on Service Workers + the Cache API
@@ -69,18 +73,8 @@ Aussi mis dans le `main.ts`.
   - convert duration from HH:MM:SS to SSSSS
   - add path to music track with `find` command (ex: `find /music/Music -iname "Russian tv.mp3"`)
 
+## How to clear all Docker image/container/cache
+This is especially useful when we need Docker containers to update files coming from the filesystem. For instance, I wanted to have ahuge playlist (Ambient) so I updated all tracks patch inside the `Ambient.m3u` file in my filesystem. But Docker didn't take into account this new file. I suspect the old one was still cached. Also, the files in the container are in read-only so I couldn't do this directly in Docker.
 
-What happens if user clicks on the play/pause button:
-1. Si track en train de jouer : toggle current song play state (play || pause)
-2. Si pas de track en train de jouer :
-  1. on charge le current song
-  2. On le joue
-  3. on le save via `saveLastPlayedSong`
-
-What happens if user clicks on track in a list
-1. On charge ce track
-2. On dit au player de jouer le track chargé
-3. On save le track dans le localStorage en tant que dernier track joué
-
-Player doit toujours avoir un track de chargé:
-  - Pour ça on stock dans le localStorage le dernier track joué et on charge ce morceau au lancement du player
+1. Open Docker desktop and delete everything
+2. Open the directory and run `docker compose up` which will rebuild everything and do a "clean" install
