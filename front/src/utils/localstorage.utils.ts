@@ -2,7 +2,7 @@ interface SavedSong {
   id: string;
   title: string;
   artist: string;
-  albumCover?: string;
+  coverUrl?: string;
 }
 
 export const saveLastPlayedSong = (song: SavedSong): void => {
