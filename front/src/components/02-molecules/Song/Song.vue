@@ -1,9 +1,9 @@
 <template>
   <button class="m-song" @click.prevent="setPlayingSong">
     <AlbumCover
-      v-if="albumCover"
+      v-if="showCover"
       class="m-song__cover"
-      :cover-url="albumCover"
+      :cover-url="cover"
       :size="'small'"
     />
     <div class="m-song__info">
@@ -16,21 +16,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { getCoverArtUrl } from '@/utils/subsonic.utils';
 import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
-import { type Child } from 'subsonic-api';
+import { type SongWithCover } from '@/types/subsonic.types';
 import AlbumCover from '@/components/01-atoms/AlbumCover/AlbumCover.vue';
 
 const props = withDefaults(
   defineProps<{
-    song: Child;
+    song: SongWithCover;
     showTrackNumber?: boolean;
     showArtist?: boolean;
-    albumCover?: string;
+    showCover?: boolean;
   }>(),
   {
     showTrackNumber: false,
-    showArtist: true
+    showArtist: true,
+    showCover: true,
   }
 );
 
@@ -45,6 +47,16 @@ const emit = defineEmits<{
 const setPlayingSong = () => {
   emit('set-playing-song', props.song.id);
 };
+
+const cover = ref('');
+const getCoverUrl = async () => {
+  const coverUrl = await getCoverArtUrl(props.song.coverArt!);
+  cover.value = coverUrl;
+}
+
+onMounted(() => {
+  getCoverUrl();
+})
 </script>
 
 <style lang="scss">

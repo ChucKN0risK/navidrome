@@ -5,7 +5,6 @@
       :song="song"
       :show-artist="showArtist"
       :show-cover="showCover"
-      :cover-url="coverUrl"
       @set-playing-song="setCurrentTrack"
     />
     <button
@@ -34,7 +33,6 @@ import Song from '@/components/02-molecules/Song/Song.vue';
 const props = withDefaults(
   defineProps<{
     songs: Child[] | SongWithCover[] | null;
-    coverUrl?: string;
     showCover?: boolean;
     showArtist?: boolean;
   }>(),

@@ -30,7 +30,6 @@ import { usePlayerStore } from '@/stores/player';
 import { useDrawerStore } from '@/stores/drawer';
 import { storeToRefs } from 'pinia';
 import { secondsToHHMMSS } from '@/utils/timeConverter.utils';
-import { getCoverArtUrl } from '@/utils/subsonic.utils';
 import Text from '@/components/01-atoms/Text/Text.vue';
 import Stack from '@/components/01-atoms/Stack/Stack.vue';
 import SongList from '@/components/03-organisms/SongList/SongList.vue';
@@ -44,16 +43,6 @@ fetchPlaylist(props.id);
 const { getPlaylist } = storeToRefs(usePlaylistStore());
 const playlist = getPlaylist;
 const songs = computed(() => playlist.value?.entry ?? []);
-
-const fetchSongCovers = async () => {
-  await fetchPlaylist(props.id);
-  await Promise.all(songs.value.map(async (el) => {
-    const cover = await getCoverArtUrl(el.coverArt!);
-    el.coverUrl = cover;
-  }));
-};
-
-fetchSongCovers();
 
 const { setItem, setDrawerOpenState } = useDrawerStore();
 const openItemOptions = (songId: string) => {
