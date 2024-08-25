@@ -1,5 +1,4 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 import { type Playlist } from 'subsonic-api';
 import { api } from '@/main';
 
