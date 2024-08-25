@@ -9,7 +9,7 @@
       ref="player"
       controls
       type="audio/mpeg"
-      :src="url"
+      :src="safeUrl"
       @canplaythrough="setPlayerLoadingState"
       @timeupdate="updateProgress"
     />
@@ -52,7 +52,7 @@
         </button>
       </div>
       <div class="o-player__full__scroller" ref="tabsScroller">
-        <Stack :space-unit="4" ref="currentSongEl">
+        <div class="o-player__full__current-song" ref="currentSongEl">
           <AlbumCover
             class="o-player__full__cover"
             :cover-url="getSongAlbumCover"
@@ -63,9 +63,10 @@
             :title="getSongTitle"
             :artist="getSongArtist"
           />
-        </Stack>
+        </div>
         <div class="o-player__full__queue" ref="queueEl">
-          Queue
+          <Text :type="'body-m'" :text="'Up next'" />
+          <SongList :songs="getPlayQueue ?? []" />
         </div>
       </div>
       <PlayerControls
@@ -87,27 +88,27 @@
 <script setup lang="ts">
 import { ref, type Ref, watch, computed, onMounted, onUnmounted } from 'vue';
 import { usePlayerStore } from '@/stores/player';
-import { useAlbumStore } from '@/stores/album';
+import { storeToRefs } from 'pinia';
+import { saveLastPlayedSong, getLastPlayedSong } from '@/utils/localstorage.utils';
+import { getCoverArtUrl } from '@/utils/subsonic.utils';
 import Vector from '@/components/01-atoms/Vector/Vector.vue';
 import Text from '@/components/01-atoms/Text/Text.vue';
-import Stack from '@/components/01-atoms/Stack/Stack.vue';
 import AlbumCover from '@/components/01-atoms/AlbumCover/AlbumCover.vue';
 import PlayerTrackInfo from '@/components/02-molecules/PlayerTrackInfo/PlayerTrackInfo.vue';
 import PlayerProgress from '@/components/02-molecules/PlayerProgress/PlayerProgress.vue';
 import PlayerControls from '@/components/02-molecules/PlayerControls/PlayerControls.vue';
-import { storeToRefs } from 'pinia';
-import { saveLastPlayedSong, getLastPlayedSong } from '@/utils/localstorage.utils';
+import SongList from '@/components/03-organisms/SongList/SongList.vue';
 
 const { loadSong, registerCurrentSong, setCurrentSong, setPlayQueue } = usePlayerStore();
-const { getNowPlayingUrl, getCurrentSong, songId } = storeToRefs(usePlayerStore());
+const { getNowPlayingUrl, getCurrentSong, songId, getPlayQueue } = storeToRefs(usePlayerStore());
 const el = ref({} as HTMLDivElement);
-const url = getNowPlayingUrl;
+const safeUrl = computed(() => getNowPlayingUrl.value ?? undefined);
 const song = getCurrentSong;
 const savedSong = getLastPlayedSong();
 const savedSongId = computed(() => savedSong ? JSON.parse(savedSong).id : songId);
 const savedSongTitle = computed(() => savedSong ? JSON.parse(savedSong).title : song.value?.title);
 const savedSongArtist = computed(() => savedSong ? JSON.parse(savedSong).artist : song.value?.artist);
-const savedAlbumCover = computed(() => savedSong ? JSON.parse(savedSong).albumCover : albumCover.value);
+const savedSongCover = computed(() => savedSong ? JSON.parse(savedSong).coverUrl : songCover.value);
 const player: Ref<HTMLAudioElement | null> = ref(null);
 const isPlaying = ref(false);
 const showSmallViewportPlayer = ref(false);
@@ -124,32 +125,33 @@ const loadSavedSong = () => {
 };
 
 onMounted(() => {
+  document.addEventListener('click', documentClick);
   loadSavedSong();
 });
 
 // Load song once the songId changes in the store:
 // - when last played track is found in localStorage
 // - when user clicks on a song in a list
-watch(songId, () => {
+watch(() => songId?.value, async (newSongId) => {
   console.log('songId ref changed, do something!')
-  if (songId?.value) {
-    loadSong(songId.value);
-    registerCurrentSong(songId.value).then(() => {
-      setCurrentSong().then(() => {
-        // can play parfois à false alors que le track a chargé.
-        // Je sais pas trop pourquoi.
-        // console.log(`can play: ${canPlay.value}`)
-        fetchAlbumCover(song.value!.albumId!);
-        setPlayQueue()
-        if (song.value?.id && song.value?.artist && song.value?.title) {
-          saveLastPlayedSong({
-            id: song.value?.id,
-            artist: song.value?.artist,
-            title: song.value?.title
-          });
-        }
+  if (newSongId) {
+    await loadSong(newSongId);
+    await registerCurrentSong(newSongId);
+    await setCurrentSong();
+    
+    // can play parfois à false alors que le track a chargé.
+    // Je sais pas trop pourquoi.
+    // console.log(`can play: ${canPlay.value}`)
+    await fetchSongCover(song.value!.coverArt!);
+    await setPlayQueue();
+    
+    if (song.value?.id && song.value?.artist && song.value?.title) {
+      saveLastPlayedSong({
+        id: song.value?.id,
+        artist: song.value?.artist,
+        title: song.value?.title
       });
-    });
+    }
   }
 });
 
@@ -166,25 +168,28 @@ const play = () => {
   }
 };
 
-const { getAlbumCover } = useAlbumStore();
-const albumCover = ref('');
-const fetchAlbumCover = async (albumId: string) => {
-  const cover = await getAlbumCover(albumId);
-  if (cover) albumCover.value = cover;
+const songCover = ref('');
+const fetchSongCover = async (coverArt: string) => {
+  const cover = await getCoverArtUrl(coverArt);
+  if (cover) songCover.value = cover;
   if (song.value?.artist && song.value?.title) {
     saveLastPlayedSong({
       id: song.value?.id,
       artist: song.value?.artist,
       title: song.value?.title,
-      albumCover: albumCover.value
+      coverUrl: songCover.value
     });
   }
-  return albumCover;
+  return songCover;
 };
 
-const getSongTitle = computed(() => song.value ? song.value?.title : savedSongTitle.value);
-const getSongArtist = computed(() => song.value ? song.value?.artist : savedSongArtist.value);
-const getSongAlbumCover = computed(() => albumCover.value !== '' ? albumCover.value : savedAlbumCover.value);
+watch(getPlayQueue, () => {
+  console.log('play queue chaged')
+})
+
+const getSongTitle = computed(() => song.value ? song.value?.title : savedSongTitle.value ?? '');
+const getSongArtist = computed(() => song.value ? song.value?.artist : savedSongArtist.value ?? '');
+const getSongAlbumCover = computed(() => songCover.value !== '' ? songCover.value : savedSongCover.value ?? '');
 
 const setPlayerLoadingState = () => {
   canPlay.value = true;
@@ -197,46 +202,34 @@ const updateProgress = () => {
   if (!player.value) {
     return;
   }
-  // const trackProgress = `${Math.floor((player.value.currentTime / player.value.duration) * 100)}`;
-  // document.documentElement.style.setProperty('--player-progress-bar-value', `${trackProgress}%`);
   playerEllapsedTime.value = Math.round(player.value.currentTime);
 };
 
 const updateTrackPlayingPosition = (value: number) => {
-  console.log(value)
   if (!player.value || !value) {
     return;
   }
   player.value.currentTime = (value * player.value.duration) / 100;
-  play();
 };
 
 const playNext = () => {
-  if (song.value) {
-    setPlayQueue(song.value?.id);
-  }
+  console.log('play next');
 };
 
 const playPrevious = () => {
-  if (song.value) {
-    setPlayQueue(song.value?.id);
-  }
+  console.log('play previous');
 };
 
 const toggleSmallViewportPlayer = () => {
   return showSmallViewportPlayer.value = !showSmallViewportPlayer.value;
 };
 
-watch(showSmallViewportPlayer, () => {
-  if (showSmallViewportPlayer.value) {
-    createTabsScroller();
-  }
-})
-
+const observer = ref();
 const tabsScroller: Ref<HTMLDivElement | null> = ref(null);
 const currentSongEl: Ref<HTMLDivElement | null> = ref(null);
 const queueEl: Ref<HTMLDivElement | null> = ref(null);
 const currentSongIsShown = ref(true);
+
 const createTabsScroller = () => {
   let options = {
     root: tabsScroller.value,
@@ -246,14 +239,18 @@ const createTabsScroller = () => {
     threshold: 0.25,
   };
 
-  let callback = (entries: Element[], observer) => {
+  let callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
     entries.forEach((entry) => {
       return entry.isIntersecting ? currentSongIsShown.value = true : currentSongIsShown.value = false;
     });
   };
-  let observer = new IntersectionObserver(callback, options);
-  observer.observe(currentSongEl.value!);
+  observer.value = new IntersectionObserver(callback, options);
+  observer.value.observe(currentSongEl.value);
 };
+
+onMounted(() => {
+  createTabsScroller();
+});
 
 const showPlayer = (): void => {
   currentSongEl.value?.scrollIntoView();
@@ -267,20 +264,21 @@ const documentClick = (e: MouseEvent) => {
   const playerPlayButton = document.getElementById('playerPlayBtn');
   const playerPlayButtonClicked = e.target === playerPlayButton || playerPlayButton?.contains(e.target as Node);
   const shouldOpen =
-    !playerPlayButtonClicked && (
-    el.value === e.target ||
-    el.value.contains(e.target as Node)
-  );
+    !playerPlayButtonClicked
+    && savedSong !== ''
+    && (
+      el.value === e.target ||
+      el.value.contains(e.target as Node)
+    );
 
   if (shouldOpen) {
     toggleSmallViewportPlayer();
   }
 };
 
-document.addEventListener('click', documentClick);
-
 onUnmounted(() => {
   document.removeEventListener('click', documentClick);
+  observer.value.disconnect();
 });
 </script>
 
